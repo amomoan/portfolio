@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+<<<<<<< HEAD
+    <title>Categories on Terminal</title>
+    <link>https://amomoan.github.io/portfolio/categories/</link>
+    <description>Recent content in Categories on Terminal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://amomoan.github.io/portfolio/categories/index.xml" rel="self" type="application/rss+xml" />
+=======
+    <title>Categories on Hugo Theme Luna</title>
+    <link>https://amomoan.github.io/portfolio/categories/</link>
+    <description>Recent content in Categories on Hugo Theme Luna</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language><atom:link href="https://amomoan.github.io/portfolio/categories/index.xml" rel="self" type="application/rss+xml" />
+>>>>>>> 3329ddc1b891e970be57d23be4c65de96f68e800
+  </channel>
+</rss>

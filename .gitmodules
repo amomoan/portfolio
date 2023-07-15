@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+[submodule "themes/themes/hugo-theme-luna"]
+	path = themes/themes/hugo-theme-luna
+	url = https://github.com/Ice-Hazymoon/hugo-theme-luna
+	branch = master
+[submodule "themes/themes/hugo-theme-terminal"]
+	path = themes/themes/hugo-theme-terminal
+	url = https://github.com/panr/hugo-theme-terminal.git
+=======
+[submodule "themes/hugo-theme-luna"]
+	path = themes/hugo-theme-luna
+	url = https://github.com/Ice-Hazymoon/hugo-theme-luna
+	branch = master
+>>>>>>> 3329ddc1b891e970be57d23be4c65de96f68e800
