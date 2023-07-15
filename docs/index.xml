@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -8,6 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>https://amomoan.github.io/portfolio/firstpost/</link>
+      <pubDate>Fri, 14 Jul 2023 22:42:39 +0900</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/firstpost/</guid>
+      <description>My First Post Welcome to my new Hugo site!
+This is my first post.</description>
+      <content>&lt;h1 id=&#34;my-first-post&#34;&gt;My First Post&lt;/h1&gt;
+&lt;p&gt;Welcome to my new Hugo site!&lt;/p&gt;
+&lt;p&gt;This is my first post.&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>About</title>
       <link>https://amomoan.github.io/portfolio/about/</link>
@@ -33,7 +46,7 @@ This theme is pretty basic and covers all of the essentials. All you have to do 
     </item>
     
     <item>
-      <title>Hello Friend</title>
+      <title>Hello Friend q</title>
       <link>https://amomoan.github.io/portfolio/posts/hello/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
@@ -134,24 +147,3 @@ Fusce pharetra suscipit orci nec tempor.</description>
     
   </channel>
 </rss>
-=======
-<rss version="2.0"
-	xmlns:content="http://purl.org/rss/1.0/modules/content/"
-	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:atom="http://www.w3.org/2005/Atom"
-	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
->
-
-    <channel>
-        <title>Hugo Theme Luna</title>
-        <atom:link href="%7balternate%20%7brss%20application/rss&#43;xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/portfolio/index.xml%20https://amomoan.github.io/portfolio/index.xml%7d" rel="self" type="application/rss+xml" />
-        <link>https://amomoan.github.io/portfolio/</link>
-        <managingEditor>Ice-Hazymoon</managingEditor>
-        <description>A simple, performance-first, SEO-friendly Hugo theme</description>
-        <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
-        <language>ja</language>
-        <generator>Hugo -- gohugo.io</generator></channel>
-</rss>
->>>>>>> 3329ddc1b891e970be57d23be4c65de96f68e800

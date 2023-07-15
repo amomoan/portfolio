@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<<<<<<< HEAD
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://amomoan.github.io/portfolio/firstpost/</loc>
+    <lastmod>2023-07-14T22:42:39+09:00</lastmod>
+  </url><url>
     <loc>https://amomoan.github.io/portfolio/about/</loc>
     <lastmod>2019-01-25T00:00:00+00:00</lastmod>
   </url><url>
@@ -23,23 +25,3 @@
     <loc>https://amomoan.github.io/portfolio/tags/</loc>
   </url>
 </urlset>
-=======
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <sitemap>
-    <loc>https://amomoan.github.io/portfolio/en-us/sitemap.xml</loc>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://amomoan.github.io/portfolio/ja/sitemap.xml</loc>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://amomoan.github.io/portfolio/zh-cn/sitemap.xml</loc>
-    
-  </sitemap>
-  
-</sitemapindex>
->>>>>>> 3329ddc1b891e970be57d23be4c65de96f68e800
