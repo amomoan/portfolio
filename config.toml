@@ -23,7 +23,7 @@ publishDir = "docs"
 
     [languages.en.params.logo]
       logoText = "Terminal"
-      logoHomeLink = "/"
+      logoHomeLink = "/portfolio"
 
     [languages.en.menu]
       [[languages.en.menu.main]]
