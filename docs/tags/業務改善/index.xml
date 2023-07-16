@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on AM0:00</title>
-    <link>https://amomoan.github.io/portfolio/posts/</link>
-    <description>Recent content in Posts on AM0:00</description>
+    <title>業務改善 on AM0:00</title>
+    <link>https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/</link>
+    <description>Recent content in 業務改善 on AM0:00</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Jul 2023 19:22:09 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Jul 2023 19:22:09 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>教職管理システム</title>
       <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>卒業証明書発行ツール :: AM0:00</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="卒業証明書発行ツール 概要 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
+また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
+効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
+1件あたり 20分→2分程度に短縮された。" />
+<meta name="keywords" content=", " />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://amomoan.github.io/portfolio/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://amomoan.github.io/portfolio/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="https://amomoan.github.io/portfolio/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="卒業証明書発行ツール">
+<meta property="og:description" content="卒業証明書発行ツール 概要 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
+また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
+効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
+1件あたり 20分→2分程度に短縮された。" />
+<meta property="og:url" content="https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/" />
+<meta property="og:site_name" content="AM0:00" />
+
+  
+  
+  <meta property="og:image" content="https://amomoan.github.io/portfolio/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-07-15 19:30:48 &#43;0900 JST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/portfolio">
+  <div class="logo">
+    AM0:00
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/portfolio/about">About</a></li>
+        
+      
+        
+          <li><a href="/portfolio/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/portfolio/about" >About</a></li>
+        
+      
+        
+          <li><a href="/portfolio/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/">卒業証明書発行ツール</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-07-15</time><span class="post-author">ExcelマクロでWordファイルを作成するようにした。</span></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/">業務改善</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/excel/">Excel</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/vba/">VBA</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/word/">Word</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="卒業証明書発行ツール">卒業証明書発行ツール<a href="#卒業証明書発行ツール" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="概要">概要<a href="#概要" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。</p>
+<p>また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。</p>
+<h2 id="効果">効果<a href="#効果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。
+また、作成の正確性が向上した。（英単語入力のスペルミスなど）</p>
+<p>1件あたり 20分→2分程度に短縮された。</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://amomoan.github.io/portfolio/posts/teacher_ability/">
+                <span class="button__icon">←</span>
+                <span class="button__text">教職管理システム</span>
+            </a>
+        </span>
+        
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/portfolio/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
