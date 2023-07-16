@@ -64,8 +64,8 @@ publishDir = "docs"
 [languages]
   [languages.en]
     languageName = "English"
-    title = "Terminal"
-    subtitle = "A simple, retro theme for Hugo"
+    title = "AM0:00"
+    subtitle = ""
     owner = ""
     keywords = ""
     copyright = ""
@@ -80,8 +80,8 @@ publishDir = "docs"
     words = "words"
 
     [languages.en.params.logo]
-      logoText = "Terminal"
-      logoHomeLink = "/"
+      logoText = "AM0:00"
+      logoHomeLink = "/portfolio"
 
     [languages.en.menu]
       [[languages.en.menu.main]]
