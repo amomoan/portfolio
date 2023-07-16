@@ -12,9 +12,8 @@ readingTime = false
 hideComments = false
 color = "" #color from the theme settings
 +++
-# 成績不振者抽出ツール
-
 ## 概要
+
 成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。
 
 それまでの担当者が「秘伝のたれ」のようにエクセル
