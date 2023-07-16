@@ -1,7 +1,7 @@
 baseurl = "https://example.com/"
 baseURL = "https://amomoan.github.io/portfolio/"
 languageCode = "en-us"
-theme = "hugo-theme-terminal"
+theme = "terminal"
 paginate = 5
 publishDir = "docs"
 [params]
