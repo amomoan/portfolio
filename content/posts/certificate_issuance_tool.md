@@ -1,12 +1,12 @@
 +++
 title = "卒業証明書発行ツール"
 date = "2023-07-15T19:30:48+09:00"
-author = "ExcelマクロでWordファイルを作成するようにした。"
+author = ""
 authorTwitter = "" #do not include @
 cover = ""
-tags = ["業務改善", "Excel","VBA","Word"]
+tags = ["業務改善", "Excel","VBA","Word","ポートフォリオ"]
 keywords = ["", ""]
-description = ""
+description = "ExcelマクロでWordファイルを作成するようにした。"
 showFullContent = false
 readingTime = false
 hideComments = false
