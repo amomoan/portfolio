@@ -3,7 +3,7 @@ title = "就職管理システム"
 date = "2023-07-17T05:36:37+09:00"
 author = ""
 authorTwitter = "" #do not include @
-cover = ""
+cover = "/portfolio/img/recruit.png.png"
 tags = ["業務改善", "Excel","Access","VBA","ポートフォリオ"]
 keywords = ["", ""]
 description = "キャリアセンターが就職先や企業管理のため使用。"
@@ -12,6 +12,8 @@ readingTime = false
 hideComments = false
 color = "" #color from the theme settings
 +++
+![リクルート](/portfolio/img/recruit.png)
+
 ## 概要
 
 担当課から相談を受け２つのキャンパスで２回制作。初回はAccessで開発したが担当課では保守ができず、あまり使ってもらえなかった。

@@ -11,7 +11,10 @@ showFullContent = false
 readingTime = false
 hideComments = false
 color = "" #color from the theme settings
+draft = true
 +++
+![教職](/portfolio/img/kyoshoku.png)
+
 ## 概要
 
 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
