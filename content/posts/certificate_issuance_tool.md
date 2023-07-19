@@ -13,8 +13,8 @@ hideComments = false
 color = "" #color from the theme settings
 +++
 
-![証明書発行PG](img/certificate.png)
-![証明書発行PGUI](img/certificateUI.png)
+![証明書発行PG](docs/img/certificate.png)
+![証明書発行PGUI](docs/img/certificateUI.png)
 
 ## 概要
 
