@@ -80,7 +80,7 @@ publishDir = "docs"
     words = "words"
 
     [languages.en.params.logo]
-      logoText = "AM0:00"
+      logoText = "YAMAMOTO MASAHIRO"
       logoHomeLink = "/portfolio"
 
     [languages.en.menu]
