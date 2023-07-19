@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>教室帳票変換ツール :: YAMAMOTO MASAHIRO</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="単票形式からマトリクス表形式に変換する。" />
+<meta name="keywords" content=", " />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://amomoan.github.io/portfolio/posts/room_schedule/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://amomoan.github.io/portfolio/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://amomoan.github.io/portfolio/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="https://amomoan.github.io/portfolio/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="教室帳票変換ツール">
+<meta property="og:description" content="単票形式からマトリクス表形式に変換する。" />
+<meta property="og:url" content="https://amomoan.github.io/portfolio/posts/room_schedule/" />
+<meta property="og:site_name" content="YAMAMOTO MASAHIRO" />
+
+  
+  
+  <meta property="og:image" content="https://amomoan.github.io/portfolio/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-07-17 05:11:14 &#43;0900 JST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/portfolio">
+  <div class="logo">
+    YAMAMOTO MASAHIRO
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/portfolio/about">About</a></li>
+        
+      
+        
+          <li><a href="/portfolio/portfolio">Portfolio</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/portfolio/about" >About</a></li>
+        
+      
+        
+          <li><a href="/portfolio/portfolio" >Portfolio</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://amomoan.github.io/portfolio/posts/room_schedule/">教室帳票変換ツール</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-07-17</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/">業務改善</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/python/">Python</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/excel/">Excel</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA/">ポートフォリオ</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="概要">概要<a href="#概要" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。</p>
+<p><a href="https://github.com/amomoan/roomSchedule">github</a>でコードを公開しています。</p>
+<h2 id="効果">効果<a href="#効果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>空いている教室の利用状況を確認するのに要していた時間の短縮</p>
+<p>10　→　2分 /人・回</p>
+<p>スタッフ数30人</p>
+<h2 id="詳細">詳細<a href="#詳細" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>dist/roomSchedule.exeを配布しています。</p>
+<h3 id="コードの説明">コードの説明<a href="#コードの説明" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&quot;施設予約.xlsx&quot;を、時間割表のような形でExcelに書き出すためのものです。
+施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。</p>
+<h3 id="使い方">使い方<a href="#使い方" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li>プログラムを起動します。</li>
+<li>「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&quot;施設予約.xlsx&quot;を選択します。</li>
+<li>処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。</li>
+</ol>
+<h3 id="必要なライブラリ">必要なライブラリ<a href="#必要なライブラリ" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li>os</li>
+<li>sys</li>
+<li>pandas</li>
+<li>datetime</li>
+<li>time</li>
+<li>numpy</li>
+<li>tkinter</li>
+<li>tqdm</li>
+<li>styleframe</li>
+</ul>
+<h3 id="処理の流れ">処理の流れ<a href="#処理の流れ" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li>施設予約ファイルを選択する</li>
+<li>施設予約ファイルを読み込む</li>
+<li>予約区分=&ldquo;施設予約&quot;の各予約に対して時限を割り当てたデータフレームを作成</li>
+<li>予約区分=&ldquo;講義&quot;のデータフレームを作成</li>
+<li>施設予約と講義のデータフレームを結合する。</li>
+<li>時間割表のような枠だけのデータフレームを作成。</li>
+<li>5のデータフレームのデータを6に転記する。</li>
+<li>Excelファイルに書き込む。</li>
+</ol>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://amomoan.github.io/portfolio/posts/macro_addin_list/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Excelマクロアドイン</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="https://amomoan.github.io/portfolio/posts/teacher_ability/">
+                <span class="button__text">教職管理システム</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/portfolio/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
