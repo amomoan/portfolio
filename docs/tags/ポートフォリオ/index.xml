@@ -146,6 +146,26 @@ githubでコードを公開しています。
     </item>
     
     <item>
+      <title>教職管理システム</title>
+      <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
+      <pubDate>Sun, 16 Jul 2023 19:22:09 +0900</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/posts/teacher_ability/</guid>
+      <description>概要 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
+制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。
+当該sharepointにアクセスできる職員しか管理情報にアクセスできない。
+効果 まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/kyoshoku.png&#34; alt=&#34;教職&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。&lt;/p&gt;
+&lt;p&gt;制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。&lt;/p&gt;
+&lt;p&gt;当該sharepointにアクセスできる職員しか管理情報にアクセスできない。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
       <title>卒業証明書発行ツール</title>
       <link>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</link>
       <pubDate>Sat, 15 Jul 2023 19:30:48 +0900</pubDate>

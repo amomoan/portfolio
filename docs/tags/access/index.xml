@@ -6,24 +6,7 @@
     <description>Recent content in Access on YAMAMOTO MASAHIRO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 17 Jul 2023 06:19:10 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/access/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>成績不振者抽出ツール</title>
-      <link>https://amomoan.github.io/portfolio/posts/bad_score_checker/</link>
-      <pubDate>Mon, 17 Jul 2023 06:19:10 +0900</pubDate>
-      
-      <guid>https://amomoan.github.io/portfolio/posts/bad_score_checker/</guid>
-      <description>概要 成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。
-それまでの担当者が「秘伝のたれ」のようにエクセル 教務システムから成績を抽出し、
-効果 </description>
-      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
-&lt;p&gt;成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。&lt;/p&gt;
-&lt;p&gt;それまでの担当者が「秘伝のたれ」のようにエクセル
-教務システムから成績を抽出し、&lt;/p&gt;
-&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
-</content>
-    </item>
-    
+    <lastBuildDate>Mon, 17 Jul 2023 05:36:37 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/access/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>就職管理システム</title>
       <link>https://amomoan.github.io/portfolio/posts/recruit_manager/</link>
@@ -71,6 +54,26 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
 &lt;p&gt;入力する項目数は同じため入力に要する時間はあまり変わらない。ただし、誰が入力しても同じようなデータになる。&lt;/p&gt;
 &lt;p&gt;効果を発揮するのは後でそのデータを抽出するとき。データベースシートから容易に抽出できる。&lt;/p&gt;
 &lt;p&gt;検索時間：30分 → 10秒&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>教職管理システム</title>
+      <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
+      <pubDate>Sun, 16 Jul 2023 19:22:09 +0900</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/posts/teacher_ability/</guid>
+      <description>概要 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
+制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。
+当該sharepointにアクセスできる職員しか管理情報にアクセスできない。
+効果 まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/kyoshoku.png&#34; alt=&#34;教職&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。&lt;/p&gt;
+&lt;p&gt;制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。&lt;/p&gt;
+&lt;p&gt;当該sharepointにアクセスできる職員しか管理情報にアクセスできない。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。&lt;/p&gt;
 </content>
     </item>
     
