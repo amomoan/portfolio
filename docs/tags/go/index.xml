@@ -13,9 +13,13 @@
       <pubDate>Wed, 19 Jul 2023 13:04:27 +0900</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/hugo/</guid>
-      <description>このウェブサイトは静的サイトジェネレーターのHUGOで作成しました。 記事をマークダウン形式で書くことができるので便利です。</description>
+      <description>このウェブサイトは静的サイトジェネレーターのHUGOで作成しました。 記事をマークダウン形式で書くことができるので便利です。
+git pagesで公開しています。
+リポジトリは[こちら]です。(https://github.com/amomoan/portfolio)</description>
       <content>&lt;p&gt;このウェブサイトは静的サイトジェネレーターの&lt;a href=&#34;https://gohugo.io/&#34;&gt;HUGO&lt;/a&gt;で作成しました。
 記事をマークダウン形式で書くことができるので便利です。&lt;/p&gt;
+&lt;p&gt;git pagesで公開しています。&lt;/p&gt;
+&lt;p&gt;リポジトリは[こちら]です。(&lt;a href=&#34;https://github.com/amomoan/portfolio&#34;&gt;https://github.com/amomoan/portfolio&lt;/a&gt;)&lt;/p&gt;
 </content>
     </item>
     
