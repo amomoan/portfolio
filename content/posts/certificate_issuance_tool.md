@@ -13,8 +13,9 @@ hideComments = false
 color = "" #color from the theme settings
 +++
 
-![証明書発行PG](../../static/img/certificate.png)
-![証明書発行PGUI](../../static/img/certificateUI.png)
+![証明書発行PG](img/certificate.png)
+![証明書発行PGUI](img/certificateUI.png)
+
 ## 概要
 
 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
