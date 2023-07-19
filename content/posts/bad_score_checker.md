@@ -1,6 +1,6 @@
 +++
 title = "成績不振者抽出ツール"
-date = "2023-07-17T06:19:10+09:00"
+date = "2023-07-01T06:19:10+09:00"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""

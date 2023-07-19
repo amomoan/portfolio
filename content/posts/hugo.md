@@ -1,6 +1,6 @@
 +++
 title = "このサイト"
-date = "2023-07-19T13:04:27+09:00"
+date = "2023-01-01T13:04:27+09:00"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""

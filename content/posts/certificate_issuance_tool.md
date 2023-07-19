@@ -1,6 +1,6 @@
 +++
 title = "卒業証明書発行ツール"
-date = "2023-07-15T19:30:48+09:00"
+date = "2023-07-04T19:30:48+09:00"
 author = ""
 authorTwitter = "" #do not include @
 cover = "/portfolio/img/certificateUI.png"

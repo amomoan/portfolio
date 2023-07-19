@@ -6,11 +6,51 @@
     <description>Recent content in 業務改善 on YAMAMOTO MASAHIRO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 17 Jul 2023 05:36:37 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Jul 2023 19:22:09 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>教職管理システム</title>
+      <link>https://amomoan.github.io/portfolio/posts/teacher_course_manager/</link>
+      <pubDate>Sun, 16 Jul 2023 19:22:09 +0900</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/posts/teacher_course_manager/</guid>
+      <description>概要 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
+制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。
+当該sharepointにアクセスできる職員しか管理情報にアクセスできない。
+効果 まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</description>
+    </item>
+    
+    <item>
+      <title>教室帳票変換ツール</title>
+      <link>https://amomoan.github.io/portfolio/posts/room_schedule/</link>
+      <pubDate>Wed, 05 Jul 2023 05:11:14 +0900</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/posts/room_schedule/</guid>
+      <description>概要 教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。
+githubでコードを公開しています。
+効果 空いている教室の利用状況を確認するのに要していた時間の短縮
+10　→　2分 /人・回
+スタッフ数30人
+詳細 dist/roomSchedule.exeを配布しています。
+コードの説明 このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。 施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。
+使い方 プログラムを起動します。 「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。 処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。 必要なライブラリ os sys pandas datetime time numpy tkinter tqdm styleframe 処理の流れ 施設予約ファイルを選択する 施設予約ファイルを読み込む 予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成 予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成 施設予約と講義のデータフレームを結合する。 時間割表のような枠だけのデータフレームを作成。 5のデータフレームのデータを6に転記する。 Excelファイルに書き込む。 </description>
+    </item>
+    
+    <item>
+      <title>卒業証明書発行ツール</title>
+      <link>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</link>
+      <pubDate>Tue, 04 Jul 2023 19:30:48 +0900</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</guid>
+      <description>概要 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
+また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
+効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
+1件あたり 20分→2分程度に短縮された。</description>
+    </item>
+    
     <item>
       <title>就職管理システム</title>
       <link>https://amomoan.github.io/portfolio/posts/recruit_manager/</link>
-      <pubDate>Mon, 17 Jul 2023 05:36:37 +0900</pubDate>
+      <pubDate>Mon, 03 Jul 2023 05:36:37 +0900</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/recruit_manager/</guid>
       <description>概要 担当課から相談を受け２つのキャンパスで２回制作。初回はAccessで開発したが担当課では保守ができず、あまり使ってもらえなかった。
@@ -28,51 +68,11 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
     <item>
       <title>Excelマクロアドイン</title>
       <link>https://amomoan.github.io/portfolio/posts/macro_addin_list/</link>
-      <pubDate>Mon, 17 Jul 2023 05:27:19 +0900</pubDate>
+      <pubDate>Sun, 02 Jul 2023 05:27:19 +0900</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/macro_addin_list/</guid>
       <description>概要 よく使う集計作業などをワンクリックでできるようにしたもの。例えば複数のシート内容を結合する機能など。希望者には配布している。
 効果 ブックやシートの結合はよく行うが、手作業で行うと時間がかかるので、特に効果的だった。 自分の業務上100ブック、数百シート程度のExcelファイルを結合することもある。このように数が多くなればなるほど効果的。</description>
-    </item>
-    
-    <item>
-      <title>教室帳票変換ツール</title>
-      <link>https://amomoan.github.io/portfolio/posts/room_schedule/</link>
-      <pubDate>Mon, 17 Jul 2023 05:11:14 +0900</pubDate>
-      
-      <guid>https://amomoan.github.io/portfolio/posts/room_schedule/</guid>
-      <description>概要 教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。
-githubでコードを公開しています。
-効果 空いている教室の利用状況を確認するのに要していた時間の短縮
-10　→　2分 /人・回
-スタッフ数30人
-詳細 dist/roomSchedule.exeを配布しています。
-コードの説明 このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。 施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。
-使い方 プログラムを起動します。 「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。 処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。 必要なライブラリ os sys pandas datetime time numpy tkinter tqdm styleframe 処理の流れ 施設予約ファイルを選択する 施設予約ファイルを読み込む 予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成 予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成 施設予約と講義のデータフレームを結合する。 時間割表のような枠だけのデータフレームを作成。 5のデータフレームのデータを6に転記する。 Excelファイルに書き込む。 </description>
-    </item>
-    
-    <item>
-      <title>教職管理システム</title>
-      <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
-      <pubDate>Sun, 16 Jul 2023 19:22:09 +0900</pubDate>
-      
-      <guid>https://amomoan.github.io/portfolio/posts/teacher_ability/</guid>
-      <description>概要 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
-制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。
-当該sharepointにアクセスできる職員しか管理情報にアクセスできない。
-効果 まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</description>
-    </item>
-    
-    <item>
-      <title>卒業証明書発行ツール</title>
-      <link>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</link>
-      <pubDate>Sat, 15 Jul 2023 19:30:48 +0900</pubDate>
-      
-      <guid>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</guid>
-      <description>概要 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
-また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
-効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
-1件あたり 20分→2分程度に短縮された。</description>
     </item>
     
   </channel>
