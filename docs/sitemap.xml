@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://amomoan.github.io/portfolio/tags/go/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
+    <loc>https://amomoan.github.io/portfolio/tags/hugo/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
+    <loc>https://amomoan.github.io/portfolio/posts/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
+    <loc>https://amomoan.github.io/portfolio/tags/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
+    <loc>https://amomoan.github.io/portfolio/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
+    <loc>https://amomoan.github.io/portfolio/posts/hugo/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
+    <loc>https://amomoan.github.io/portfolio/tags/%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA/</loc>
+    <lastmod>2023-07-19T13:04:27+09:00</lastmod>
+  </url><url>
     <loc>https://amomoan.github.io/portfolio/about/</loc>
     <lastmod>2023-07-19T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,15 +32,6 @@
     <loc>https://amomoan.github.io/portfolio/tags/excel/</loc>
     <lastmod>2023-07-17T06:19:10+09:00</lastmod>
   </url><url>
-    <loc>https://amomoan.github.io/portfolio/posts/</loc>
-    <lastmod>2023-07-17T06:19:10+09:00</lastmod>
-  </url><url>
-    <loc>https://amomoan.github.io/portfolio/tags/</loc>
-    <lastmod>2023-07-17T06:19:10+09:00</lastmod>
-  </url><url>
-    <loc>https://amomoan.github.io/portfolio/</loc>
-    <lastmod>2023-07-17T06:19:10+09:00</lastmod>
-  </url><url>
     <loc>https://amomoan.github.io/portfolio/posts/bad_score_checker/</loc>
     <lastmod>2023-07-17T06:19:10+09:00</lastmod>
   </url><url>
@@ -27,9 +39,6 @@
     <lastmod>2023-07-17T06:19:10+09:00</lastmod>
   </url><url>
     <loc>https://amomoan.github.io/portfolio/tags/vba/</loc>
-    <lastmod>2023-07-17T05:36:37+09:00</lastmod>
-  </url><url>
-    <loc>https://amomoan.github.io/portfolio/tags/%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA/</loc>
     <lastmod>2023-07-17T05:36:37+09:00</lastmod>
   </url><url>
     <loc>https://amomoan.github.io/portfolio/posts/recruit_manager/</loc>
