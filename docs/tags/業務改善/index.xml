@@ -8,7 +8,7 @@
     <language>en</language>
     <lastBuildDate>Wed, 19 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Teacher_ability</title>
+      <title>学力に関する証明書作成アプリ</title>
       <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
       <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
       
@@ -223,7 +223,7 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
       <guid>https://amomoan.github.io/portfolio/posts/bad_score_checker/</guid>
       <description>概要 成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。
 それまでの担当者が「秘伝のたれ」のようにExcelを継ぎ足して対応していた。そのためExcelのガラパゴス化がひどく解読するのも一苦労だった。 教務システムから成績を抽出し、そのExcelに取り込んで複雑なマニュアル操作によって何故か判定結果が出るのである。 結局それが正しいか成績表を出力して確認するので作り変えることになった。
-判定条件は論理的に解釈できるものであったので、当時（2015年）勉強を始めたSQLで判定することとした。 SQLはAccessで実行した。
+判定条件は論理的に解釈できるものであったので、当時（2016年）勉強を始めたSQLで判定することとした。 SQLはAccessで実行した。
 教務システムから出力したExcelファイルをAccessにインポートしてクエリを発行する流れである。 当然判定は正確に行われた。
 その後別の部署に異動した。
 システム入れ替えに伴いベンダーと仕様調整を行っていた2022年に私の作った判定システムが今も現役で稼働していることを知ってうれしくなった。
@@ -233,7 +233,7 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
 &lt;p&gt;それまでの担当者が「秘伝のたれ」のようにExcelを継ぎ足して対応していた。そのためExcelのガラパゴス化がひどく解読するのも一苦労だった。
 教務システムから成績を抽出し、そのExcelに取り込んで複雑なマニュアル操作によって何故か判定結果が出るのである。
 結局それが正しいか成績表を出力して確認するので作り変えることになった。&lt;/p&gt;
-&lt;p&gt;判定条件は論理的に解釈できるものであったので、当時（2015年）勉強を始めたSQLで判定することとした。
+&lt;p&gt;判定条件は論理的に解釈できるものであったので、当時（2016年）勉強を始めたSQLで判定することとした。
 SQLはAccessで実行した。&lt;/p&gt;
 &lt;p&gt;教務システムから出力したExcelファイルをAccessにインポートしてクエリを発行する流れである。
 当然判定は正確に行われた。&lt;/p&gt;

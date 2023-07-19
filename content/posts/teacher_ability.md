@@ -1,5 +1,5 @@
 +++
-title = "Teacher_ability"
+title = "学力に関する証明書作成アプリ"
 date = "2023-07-19"
 author = ""
 authorTwitter = "" #do not include @
