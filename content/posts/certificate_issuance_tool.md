@@ -3,7 +3,7 @@ title = "卒業証明書発行ツール"
 date = "2023-07-15T19:30:48+09:00"
 author = ""
 authorTwitter = "" #do not include @
-cover = "../../static/img/certificateUI.png"
+cover = ""
 tags = ["業務改善", "Excel","VBA","Word","ポートフォリオ"]
 keywords = ["", ""]
 description = "ExcelマクロでWordファイルを作成するようにした。"
@@ -13,7 +13,7 @@ hideComments = false
 color = "" #color from the theme settings
 +++
 
-![証明書発行PG](/img/certificate.png)
+![証明書発行PG](/portfolio/img/certificate.png)
 ![証明書発行PGUI](/img/certificateUI.png)
 
 ## 概要

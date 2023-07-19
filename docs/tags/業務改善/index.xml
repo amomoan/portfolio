@@ -176,7 +176,7 @@ githubでコードを公開しています。
 また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
 効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
 1件あたり 20分→2分程度に短縮された。</description>
-      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/img/certificate.png&#34; alt=&#34;証明書発行PG&#34;&gt;
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/certificate.png&#34; alt=&#34;証明書発行PG&#34;&gt;
 &lt;img src=&#34;https://amomoan.github.io/portfolio/img/certificateUI.png&#34; alt=&#34;証明書発行PGUI&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
 &lt;p&gt;教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。&lt;/p&gt;
