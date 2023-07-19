@@ -1,6 +1,6 @@
 +++
 title = "教職管理システム"
-date = "2023-07-16T19:22:09+09:00"
+date = "2023-07-16"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""

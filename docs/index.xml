@@ -6,22 +6,7 @@
     <description>Recent content on YAMAMOTO MASAHIRO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Jul 2023 18:46:31 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Teacher_ability</title>
-      <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
-      <pubDate>Wed, 19 Jul 2023 18:46:31 +0900</pubDate>
-      
-      <guid>https://amomoan.github.io/portfolio/posts/teacher_ability/</guid>
-      <description>概要 大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。 しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。
-この操作は大変複雑で、かつ、法改正が高頻度であるため、本証明書もそれに対応するため様式を変更する必要がる。とても流動的な証明書である。 多くの大学では、この証明書の発行に多大な労力を払っている。
-この証明書を発行するために今までは以下の手順を踏んでいた。
-成績証明書を出力 当時の講義要項を印刷 読替表を印刷 読替のチェック（蛍光ペンで紙にマーク） その結果を文部科学省の様式に転記 備考欄に特記事項を記載 以上5までのステップはロジカルなものであるため、機械化できると判断した。
-当初Excelで完結するつもりだったが、これまでの成績データが 110万件を超えたため断念。 職場の制約を満たすため、成績データや個人情報などはDB化しNASに配置し、ローカルホストでサーバーを立ち上げウェブアプリからDBに接続する方法を採用した。
-機密情報があるためコードは公開できないが、上記の5までのステップは1分かからず実行可能。 また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。 ただし、成績情報が電子データとして保存されている場合に限定される。
-効果 3時間　→　1分未満 正確性の向上</description>
-    </item>
-    
+    <lastBuildDate>Wed, 19 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://amomoan.github.io/portfolio/about/</link>
@@ -38,24 +23,172 @@
 休日も独学でプログラミングの学習を行っています。大学で数か月間休日に行われた社会人向けのPython講座にも参加して知見を深めました。
 好奇心が人一倍強く常に新しい知識を求めています。スキルアップのための学習は苦ではありません。そのおかげで現在は多くの部署からデータ管理や分析などのアドバイスを求められるようになりました。例えば、企画戦略（IR）部門へのデータ集計方法の提案、就職先の管理システムの作成、広報戦略のためのデータ集計などです。
 このように、他部署の業務改善にも大きく貢献でき、また、自分の知識や経験を共有することで、チームワークを高めることができると考えています。</description>
+      <content>&lt;h2 id=&#34;現在の職務&#34;&gt;現在の職務&lt;/h2&gt;
+&lt;p&gt;現在、大学で教務事務に従事しています。2013年から文学部と工学部の授業運営を担当してきました。&lt;/p&gt;
+&lt;p&gt;教務事務は、授業に関する様々な業務を行うものです。例えば、時間割作成、履修登録管理、成績管理、証明書発行などです。これらの業務は、データの抽出・分析・可視化が重要であり、ミスがあれば卒業できないなどの深刻な問題につながります。そのため、私はExcelやAccess、Pythonなどを用いて効率的かつ正確に業務を遂行しています。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;得意とする経験分野&#34;&gt;得意とする経験・分野&lt;/h2&gt;
+&lt;p&gt;大量のデータ処理に長けています。ExcelやWordはもちろんのこと、AccessやPythonも使いこなせます。他の職員に研修も行いました。&lt;/p&gt;
+&lt;p&gt;また、教務システムの変更や保守にも携わってきました。仕様調整や要件定義書の確認、移行データの作成、納品確認などを行っていました。また、マニュアル作成や課職員のPC設定・保守・管理も担当しています。&lt;/p&gt;
+&lt;p&gt;さらに、他部署との連携も得意としています。企画戦略部門や広報戦略部門からデータ分析方法や管理システムの作成などを相談されることが多くあります。私はそれらに応えることで、大学全体の業務改善に貢献しています。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;スキル&#34;&gt;スキル&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;SQL（Access,SQLite）,Python&lt;/li&gt;
+&lt;li&gt;MicrosoftOffice（Word,Excel,PowerPoint,Access,Outlook）VBAまでできます。&lt;/li&gt;
+&lt;li&gt;画像処理ソフト（Photoshop,Illustratorなど）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;職務経歴詳細&#34;&gt;職務経歴詳細&lt;/h2&gt;
+&lt;p&gt;期間業務内容
+2013年10月　～　現在【配属先】教務系　所属人数45人程度&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;担当業務&#34;&gt;担当業務&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;教務業務（現在は文学部担当、以前は工学部を4年間担当。）メイン業務
+&lt;ul&gt;
+&lt;li&gt;授業運営&lt;/li&gt;
+&lt;li&gt;教室変更、予約&lt;/li&gt;
+&lt;li&gt;時間割作成、登録→時間割表作成ツールを作成配布し効率化（Excel）
+&lt;ul&gt;
+&lt;li&gt;全教員から希望を聞いて調整&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;履修登録管理&lt;/li&gt;
+&lt;li&gt;学生対応
+&lt;ul&gt;
+&lt;li&gt;成績が良くない学生を分析してフォローアップする。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;受験生、学生、保護者対応&lt;/li&gt;
+&lt;li&gt;授業に関する質問、クレーム対応&lt;/li&gt;
+&lt;li&gt;教員対応
+&lt;ul&gt;
+&lt;li&gt;教員からの依頼への対応（データ提供依頼など）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;外部講師対応（謝金、旅費支出）&lt;/li&gt;
+&lt;li&gt;証明書作成、発行
+&lt;ul&gt;
+&lt;li&gt;システムに登録されていない学生はExcelなどで手作りする。
+&lt;ul&gt;
+&lt;li&gt;→ツールを作成して効率化（Excel,Word）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;その他
+&lt;ul&gt;
+&lt;li&gt;教授会運営、イベント運営、照会対応、資格業務（学芸員資格など）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;電算業務
+&lt;ul&gt;
+&lt;li&gt;データ分析業務（成績や授業に関して）
+&lt;ul&gt;
+&lt;li&gt;データの取り扱い件数は事務職員トップ（例えば成績は100万件を超える）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;教務システムの変更に伴う業務
+&lt;ul&gt;
+&lt;li&gt;仕様調整、要件定義書の確認、移行データの作成、納品確認&lt;/li&gt;
+&lt;li&gt;運用しつつマニュアル作成（現在）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;全学生に関する教務システムの設定&lt;/li&gt;
+&lt;li&gt;課職員のPC設定、保守、管理&lt;/li&gt;
+&lt;li&gt;Accessシステムの保守、改善、アップデート対応（昨年度まで）&lt;/li&gt;
+&lt;li&gt;係員からの質問対応（情報システム担当者への窓口業務、一次窓口として）&lt;/li&gt;
+&lt;li&gt;Excelで処理できないもの、定期業務のものはAccessやPythonを活用&lt;/li&gt;
+&lt;li&gt;課のNASの管理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;財務会計
+&lt;ul&gt;
+&lt;li&gt;経費執行（見積依頼、発注、財務会計システムへの入力）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;その他
+&lt;ul&gt;
+&lt;li&gt;規程等の作成、変更&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;自己pr&#34;&gt;自己PR&lt;/h2&gt;
+&lt;p&gt;学習意欲・向上心&lt;/p&gt;
+&lt;p&gt;休日も独学でプログラミングの学習を行っています。大学で数か月間休日に行われた社会人向けのPython講座にも参加して知見を深めました。&lt;/p&gt;
+&lt;p&gt;好奇心が人一倍強く常に新しい知識を求めています。スキルアップのための学習は苦ではありません。そのおかげで現在は多くの部署からデータ管理や分析などのアドバイスを求められるようになりました。例えば、企画戦略（IR）部門へのデータ集計方法の提案、就職先の管理システムの作成、広報戦略のためのデータ集計などです。&lt;/p&gt;
+&lt;p&gt;このように、他部署の業務改善にも大きく貢献でき、また、自分の知識や経験を共有することで、チームワークを高めることができると考えています。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Teacher_ability</title>
+      <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
+      <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/posts/teacher_ability/</guid>
+      <description>概要 大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。 しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。
+この操作は大変複雑で、かつ、法改正が高頻度であるため、本証明書もそれに対応するため様式を変更する必要がる。とても流動的な証明書である。 多くの大学では、この証明書の発行に多大な労力を払っている。
+この証明書を発行するために今までは以下の手順を踏んでいた。
+成績証明書を出力 当時の講義要項を印刷 読替表を印刷 読替のチェック（蛍光ペンで紙にマーク） その結果を文部科学省の様式に転記 備考欄に特記事項を記載 以上5までのステップはロジカルなものであるため、機械化できると判断した。
+当初Excelで完結するつもりだったが、これまでの成績データが 110万件を超えたため断念。 職場の制約を満たすため、成績データや個人情報などはDB化しNASに配置し、ローカルホストでサーバーを立ち上げウェブアプリからDBに接続する方法を採用した。
+機密情報があるためコードは公開できないが、上記の5までのステップは1分かからず実行可能。 また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。 ただし、成績情報が電子データとして保存されている場合に限定される。
+効果 3時間　→　1分未満 正確性の向上</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/gakuryoku.png&#34; alt=&#34;学力に関する証明書システム&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。
+しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。&lt;/p&gt;
+&lt;p&gt;この操作は大変複雑で、かつ、法改正が高頻度であるため、本証明書もそれに対応するため様式を変更する必要がる。とても流動的な証明書である。
+多くの大学では、この証明書の発行に多大な労力を払っている。&lt;/p&gt;
+&lt;p&gt;この証明書を発行するために今までは以下の手順を踏んでいた。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;成績証明書を出力&lt;/li&gt;
+&lt;li&gt;当時の講義要項を印刷&lt;/li&gt;
+&lt;li&gt;読替表を印刷&lt;/li&gt;
+&lt;li&gt;読替のチェック（蛍光ペンで紙にマーク）&lt;/li&gt;
+&lt;li&gt;その結果を文部科学省の様式に転記&lt;/li&gt;
+&lt;li&gt;備考欄に特記事項を記載&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上5までのステップはロジカルなものであるため、機械化できると判断した。&lt;/p&gt;
+&lt;p&gt;当初Excelで完結するつもりだったが、これまでの成績データが 110万件を超えたため断念。
+職場の制約を満たすため、成績データや個人情報などはDB化しNASに配置し、ローカルホストでサーバーを立ち上げウェブアプリからDBに接続する方法を採用した。&lt;/p&gt;
+&lt;p&gt;機密情報があるためコードは公開できないが、上記の5までのステップは1分かからず実行可能。
+また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。
+ただし、成績情報が電子データとして保存されている場合に限定される。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;3時間　→　1分未満
+正確性の向上&lt;/p&gt;
+</content>
     </item>
     
     <item>
       <title>教職管理システム</title>
       <link>https://amomoan.github.io/portfolio/posts/teacher_course_manager/</link>
-      <pubDate>Sun, 16 Jul 2023 19:22:09 +0900</pubDate>
+      <pubDate>Sun, 16 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/teacher_course_manager/</guid>
       <description>概要 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
 制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。
 当該sharepointにアクセスできる職員しか管理情報にアクセスできない。
 効果 まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/kyoshoku.png&#34; alt=&#34;教職&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。&lt;/p&gt;
+&lt;p&gt;制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。&lt;/p&gt;
+&lt;p&gt;当該sharepointにアクセスできる職員しか管理情報にアクセスできない。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。&lt;/p&gt;
+</content>
     </item>
     
     <item>
       <title>教室帳票変換ツール</title>
       <link>https://amomoan.github.io/portfolio/posts/room_schedule/</link>
-      <pubDate>Wed, 05 Jul 2023 05:11:14 +0900</pubDate>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/room_schedule/</guid>
       <description>概要 教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。
@@ -66,24 +199,76 @@ githubでコードを公開しています。
 詳細 dist/roomSchedule.exeを配布しています。
 コードの説明 このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。 施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。
 使い方 プログラムを起動します。 「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。 処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。 必要なライブラリ os sys pandas datetime time numpy tkinter tqdm styleframe 処理の流れ 施設予約ファイルを選択する 施設予約ファイルを読み込む 予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成 予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成 施設予約と講義のデータフレームを結合する。 時間割表のような枠だけのデータフレームを作成。 5のデータフレームのデータを6に転記する。 Excelファイルに書き込む。 </description>
+      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/amomoan/roomSchedule&#34;&gt;github&lt;/a&gt;でコードを公開しています。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;空いている教室の利用状況を確認するのに要していた時間の短縮&lt;/p&gt;
+&lt;p&gt;10　→　2分 /人・回&lt;/p&gt;
+&lt;p&gt;スタッフ数30人&lt;/p&gt;
+&lt;h2 id=&#34;詳細&#34;&gt;詳細&lt;/h2&gt;
+&lt;p&gt;dist/roomSchedule.exeを配布しています。&lt;/p&gt;
+&lt;h3 id=&#34;コードの説明&#34;&gt;コードの説明&lt;/h3&gt;
+&lt;p&gt;このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。
+施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。&lt;/p&gt;
+&lt;h3 id=&#34;使い方&#34;&gt;使い方&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;プログラムを起動します。&lt;/li&gt;
+&lt;li&gt;「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。&lt;/li&gt;
+&lt;li&gt;処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;必要なライブラリ&#34;&gt;必要なライブラリ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;os&lt;/li&gt;
+&lt;li&gt;sys&lt;/li&gt;
+&lt;li&gt;pandas&lt;/li&gt;
+&lt;li&gt;datetime&lt;/li&gt;
+&lt;li&gt;time&lt;/li&gt;
+&lt;li&gt;numpy&lt;/li&gt;
+&lt;li&gt;tkinter&lt;/li&gt;
+&lt;li&gt;tqdm&lt;/li&gt;
+&lt;li&gt;styleframe&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;処理の流れ&#34;&gt;処理の流れ&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;施設予約ファイルを選択する&lt;/li&gt;
+&lt;li&gt;施設予約ファイルを読み込む&lt;/li&gt;
+&lt;li&gt;予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成&lt;/li&gt;
+&lt;li&gt;予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成&lt;/li&gt;
+&lt;li&gt;施設予約と講義のデータフレームを結合する。&lt;/li&gt;
+&lt;li&gt;時間割表のような枠だけのデータフレームを作成。&lt;/li&gt;
+&lt;li&gt;5のデータフレームのデータを6に転記する。&lt;/li&gt;
+&lt;li&gt;Excelファイルに書き込む。&lt;/li&gt;
+&lt;/ol&gt;
+</content>
     </item>
     
     <item>
       <title>卒業証明書発行ツール</title>
       <link>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</link>
-      <pubDate>Tue, 04 Jul 2023 19:30:48 +0900</pubDate>
+      <pubDate>Tue, 04 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</guid>
       <description>概要 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
 また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
 効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
 1件あたり 20分→2分程度に短縮された。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/certificate.png&#34; alt=&#34;証明書発行PG&#34;&gt;
+&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/certificateUI.png&#34; alt=&#34;証明書発行PGUI&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。&lt;/p&gt;
+&lt;p&gt;また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。
+また、作成の正確性が向上した。（英単語入力のスペルミスなど）&lt;/p&gt;
+&lt;p&gt;1件あたり 20分→2分程度に短縮された。&lt;/p&gt;
+</content>
     </item>
     
     <item>
       <title>就職管理システム</title>
       <link>https://amomoan.github.io/portfolio/posts/recruit_manager/</link>
-      <pubDate>Mon, 03 Jul 2023 05:36:37 +0900</pubDate>
+      <pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/recruit_manager/</guid>
       <description>概要 担当課から相談を受け２つのキャンパスで２回制作。初回はAccessで開発したが担当課では保守ができず、あまり使ってもらえなかった。
@@ -96,22 +281,62 @@ githubでコードを公開しています。
 Excelで完結する 担当者がメンテナンスできるようにする（持続可能性） マクロは使わない なるべく簡単なシート関数で実装する 作成 要件定義：作りこむ前に簡単に作成してみて担当者にヒアリングした。機能の過不足について調査。 作成：データベース部分のシートと個別帳票シートに分けて、Lookup関数で参照するように作成。メンテナンスしやすいように正規化は最小限に留めた。印刷する必要もあるとのことだった。 納品：担当者とその上司に実際にサンプルデータで説明を行う。 データ移行：今までの各担当者が蓄積していた微妙に違う帳票内容をクレンジングしてデータ移行した。 効果 入力する項目数は同じため入力に要する時間はあまり変わらない。ただし、誰が入力しても同じようなデータになる。
 効果を発揮するのは後でそのデータを抽出するとき。データベースシートから容易に抽出できる。
 検索時間：30分 → 10秒</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/recruit.png&#34; alt=&#34;リクルート&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;担当課から相談を受け２つのキャンパスで２回制作。初回はAccessで開発したが担当課では保守ができず、あまり使ってもらえなかった。&lt;/p&gt;
+&lt;p&gt;反省を生かし２回目はExcelで作成。マクロは使用せずテーブル設計を工夫し、関数を用い担当者でメンテナンスできるように工夫した。その結果現在でも使用されている。&lt;/p&gt;
+&lt;h3 id=&#34;相談内容-2度目の成功事例&#34;&gt;相談内容 (2度目の成功事例)&lt;/h3&gt;
+&lt;p&gt;企業訪問を受けた際、従来Excelフォーマット（単票形式）に担当者がその内容を記録していた。それを印刷してファイリングしていて、後からその情報を閲覧するときにはファイルの内容を探す手段がとられていた。&lt;/p&gt;
+&lt;p&gt;また、学生の就職先は別のシステムで管理されており、担当者によって企業名の入力が異なるため、データを結合しづらい状況があった。&lt;/p&gt;
+&lt;p&gt;私が業務改善を行っていることを知っていたキャリアセンター職員から相談を受け改善することになった。&lt;/p&gt;
+&lt;h2 id=&#34;検討&#34;&gt;検討&lt;/h2&gt;
+&lt;p&gt;1度目は就職先管理をAccessで行うことが目的だったが、Accessの運用は担当職員にはハードルが高く、また、自分が所属している部署ではなかったため、サポートがしづらい状況だった。そのため、管理システムは完成したが運用してもらえなかった苦い経験があった。&lt;/p&gt;
+&lt;p&gt;反省点と改善点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Excelで完結する&lt;/li&gt;
+&lt;li&gt;担当者がメンテナンスできるようにする（持続可能性）
+&lt;ul&gt;
+&lt;li&gt;マクロは使わない&lt;/li&gt;
+&lt;li&gt;なるべく簡単なシート関数で実装する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;作成&#34;&gt;作成&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;要件定義：作りこむ前に簡単に作成してみて担当者にヒアリングした。機能の過不足について調査。&lt;/li&gt;
+&lt;li&gt;作成：データベース部分のシートと個別帳票シートに分けて、Lookup関数で参照するように作成。メンテナンスしやすいように正規化は最小限に留めた。印刷する必要もあるとのことだった。&lt;/li&gt;
+&lt;li&gt;納品：担当者とその上司に実際にサンプルデータで説明を行う。&lt;/li&gt;
+&lt;li&gt;データ移行：今までの各担当者が蓄積していた微妙に違う帳票内容をクレンジングしてデータ移行した。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;入力する項目数は同じため入力に要する時間はあまり変わらない。ただし、誰が入力しても同じようなデータになる。&lt;/p&gt;
+&lt;p&gt;効果を発揮するのは後でそのデータを抽出するとき。データベースシートから容易に抽出できる。&lt;/p&gt;
+&lt;p&gt;検索時間：30分 → 10秒&lt;/p&gt;
+</content>
     </item>
     
     <item>
       <title>Excelマクロアドイン</title>
       <link>https://amomoan.github.io/portfolio/posts/macro_addin_list/</link>
-      <pubDate>Sun, 02 Jul 2023 05:27:19 +0900</pubDate>
+      <pubDate>Sun, 02 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/macro_addin_list/</guid>
       <description>概要 よく使う集計作業などをワンクリックでできるようにしたもの。例えば複数のシート内容を結合する機能など。希望者には配布している。
 効果 ブックやシートの結合はよく行うが、手作業で行うと時間がかかるので、特に効果的だった。 自分の業務上100ブック、数百シート程度のExcelファイルを結合することもある。このように数が多くなればなるほど効果的。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/macrolist1.png&#34; alt=&#34;マクロリスト&#34;&gt;
+&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/macrolist2.png&#34; alt=&#34;マクロリスト&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;よく使う集計作業などをワンクリックでできるようにしたもの。例えば複数のシート内容を結合する機能など。希望者には配布している。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;ブックやシートの結合はよく行うが、手作業で行うと時間がかかるので、特に効果的だった。
+自分の業務上100ブック、数百シート程度のExcelファイルを結合することもある。このように数が多くなればなるほど効果的。&lt;/p&gt;
+</content>
     </item>
     
     <item>
       <title>成績不振者抽出ツール</title>
       <link>https://amomoan.github.io/portfolio/posts/bad_score_checker/</link>
-      <pubDate>Sat, 01 Jul 2023 06:19:10 +0900</pubDate>
+      <pubDate>Sat, 01 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/bad_score_checker/</guid>
       <description>概要 成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。
@@ -121,26 +346,36 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
 その後別の部署に異動した。
 システム入れ替えに伴いベンダーと仕様調整を行っていた2022年に私の作った判定システムが今も現役で稼働していることを知ってうれしくなった。
 効果 1～2週間　→　3分 程度</description>
+      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。&lt;/p&gt;
+&lt;p&gt;それまでの担当者が「秘伝のたれ」のようにExcelを継ぎ足して対応していた。そのためExcelのガラパゴス化がひどく解読するのも一苦労だった。
+教務システムから成績を抽出し、そのExcelに取り込んで複雑なマニュアル操作によって何故か判定結果が出るのである。
+結局それが正しいか成績表を出力して確認するので作り変えることになった。&lt;/p&gt;
+&lt;p&gt;判定条件は論理的に解釈できるものであったので、当時（2015年）勉強を始めたSQLで判定することとした。
+SQLはAccessで実行した。&lt;/p&gt;
+&lt;p&gt;教務システムから出力したExcelファイルをAccessにインポートしてクエリを発行する流れである。
+当然判定は正確に行われた。&lt;/p&gt;
+&lt;p&gt;その後別の部署に異動した。&lt;/p&gt;
+&lt;p&gt;システム入れ替えに伴いベンダーと仕様調整を行っていた2022年に私の作った判定システムが今も現役で稼働していることを知ってうれしくなった。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;1～2週間　→　3分 程度&lt;/p&gt;
+</content>
     </item>
     
     <item>
       <title>このサイト</title>
       <link>https://amomoan.github.io/portfolio/posts/hugo/</link>
-      <pubDate>Sun, 01 Jan 2023 13:04:27 +0900</pubDate>
+      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/hugo/</guid>
       <description>このウェブサイトは静的サイトジェネレーターのHUGOで作成しました。 記事をマークダウン形式で書くことができるので便利です。
 git pagesで公開しています。
 リポジトリは[こちら]です。(https://github.com/amomoan/portfolio)</description>
-    </item>
-    
-    <item>
-      <title>Portfolio</title>
-      <link>https://amomoan.github.io/portfolio/portfolio/</link>
-      <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://amomoan.github.io/portfolio/portfolio/</guid>
-      <description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description>
+      <content>&lt;p&gt;このウェブサイトは静的サイトジェネレーターの&lt;a href=&#34;https://gohugo.io/&#34;&gt;HUGO&lt;/a&gt;で作成しました。
+記事をマークダウン形式で書くことができるので便利です。&lt;/p&gt;
+&lt;p&gt;git pagesで公開しています。&lt;/p&gt;
+&lt;p&gt;リポジトリは[こちら]です。(&lt;a href=&#34;https://github.com/amomoan/portfolio&#34;&gt;https://github.com/amomoan/portfolio&lt;/a&gt;)&lt;/p&gt;
+</content>
     </item>
     
   </channel>

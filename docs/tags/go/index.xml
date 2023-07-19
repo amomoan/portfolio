@@ -6,16 +6,21 @@
     <description>Recent content in GO on YAMAMOTO MASAHIRO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 01 Jan 2023 13:04:27 +0900</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://amomoan.github.io/portfolio/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>このサイト</title>
       <link>https://amomoan.github.io/portfolio/posts/hugo/</link>
-      <pubDate>Sun, 01 Jan 2023 13:04:27 +0900</pubDate>
+      <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/hugo/</guid>
       <description>このウェブサイトは静的サイトジェネレーターのHUGOで作成しました。 記事をマークダウン形式で書くことができるので便利です。
 git pagesで公開しています。
 リポジトリは[こちら]です。(https://github.com/amomoan/portfolio)</description>
+      <content>&lt;p&gt;このウェブサイトは静的サイトジェネレーターの&lt;a href=&#34;https://gohugo.io/&#34;&gt;HUGO&lt;/a&gt;で作成しました。
+記事をマークダウン形式で書くことができるので便利です。&lt;/p&gt;
+&lt;p&gt;git pagesで公開しています。&lt;/p&gt;
+&lt;p&gt;リポジトリは[こちら]です。(&lt;a href=&#34;https://github.com/amomoan/portfolio&#34;&gt;https://github.com/amomoan/portfolio&lt;/a&gt;)&lt;/p&gt;
+</content>
     </item>
     
   </channel>

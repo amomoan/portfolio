@@ -1,10 +1,10 @@
 +++
 title = "成績不振者抽出ツール"
-date = "2023-07-01T06:19:10+09:00"
+date = "2023-07-01"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""
-tags = ["業務改善", "Excel","Access"]
+tags = ["業務改善", "Excel","Access","ポートフォリオ"]
 keywords = ["", ""]
 description = "Excelの複雑なステップで判定されていたものが、クエリを作成することで誰でも簡単に判定できるようにした。"
 showFullContent = false

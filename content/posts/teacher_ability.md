@@ -1,10 +1,10 @@
 +++
 title = "Teacher_ability"
-date = "2023-07-19T18:46:31+09:00"
+date = "2023-07-19"
 author = ""
 authorTwitter = "" #do not include @
 cover = "/portfolio/img/gakuryoku.png"
-tags = ["python", "flask","excel","ポートフォリオ","業務改善"]
+tags = ["Python", "Flask","Excel","ポートフォリオ","業務改善"]
 keywords = ["", ""]
 description = "「学力に関する証明書」を発行するためにウェブアプリを作成。"
 showFullContent = false

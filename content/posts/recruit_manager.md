@@ -1,6 +1,6 @@
 +++
 title = "就職管理システム"
-date = "2023-07-03T05:36:37+09:00"
+date = "2023-07-03"
 author = ""
 authorTwitter = "" #do not include @
 cover = "/portfolio/img/recruit.png"

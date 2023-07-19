@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   
-    <title>教職管理システム :: YAMAMOTO MASAHIRO</title>
+    <title>Teacher_ability :: YAMAMOTO MASAHIRO</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。" />
+<meta name="description" content="「学力に関する証明書」を発行するためにウェブアプリを作成。" />
 <meta name="keywords" content=", " />
 
   <meta name="robots" content="noodp" />
@@ -47,20 +47,20 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="教職管理システム">
-<meta property="og:description" content="担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。" />
+<meta property="og:title" content="Teacher_ability">
+<meta property="og:description" content="「学力に関する証明書」を発行するためにウェブアプリを作成。" />
 <meta property="og:url" content="https://amomoan.github.io/portfolio/posts/teacher_ability/" />
 <meta property="og:site_name" content="YAMAMOTO MASAHIRO" />
 
   
   
-  <meta property="og:image" content="https://amomoan.github.io/portfolio/">
+  <meta property="og:image" content="https://amomoan.github.io/portfolio/img/gakuryoku.png">
 
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
 
 
-  <meta property="article:published_time" content="2023-07-16 19:22:09 &#43;0900 JST" />
+  <meta property="article:published_time" content="2023-07-19 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -137,36 +137,59 @@
     
 <article class="post">
   <h1 class="post-title">
-    <a href="https://amomoan.github.io/portfolio/posts/teacher_ability/">教職管理システム</a>
+    <a href="https://amomoan.github.io/portfolio/posts/teacher_ability/">Teacher_ability</a>
   </h1>
-  <div class="post-meta"><time class="post-date">2023-07-16</time></div>
+  <div class="post-meta"><time class="post-date">2023-07-19</time></div>
 
   
     <span class="post-tags">
       
-      #<a href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/">業務改善</a>&nbsp;
+      #<a href="https://amomoan.github.io/portfolio/tags/python/">Python</a>&nbsp;
       
-      #<a href="https://amomoan.github.io/portfolio/tags/access/">Access</a>&nbsp;
+      #<a href="https://amomoan.github.io/portfolio/tags/flask/">Flask</a>&nbsp;
       
-      #<a href="https://amomoan.github.io/portfolio/tags/vba/">VBA</a>&nbsp;
+      #<a href="https://amomoan.github.io/portfolio/tags/excel/">Excel</a>&nbsp;
       
       #<a href="https://amomoan.github.io/portfolio/tags/%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA/">ポートフォリオ</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/">業務改善</a>&nbsp;
       
     </span>
   
   
+  <img src="https://amomoan.github.io/portfolio/img/gakuryoku.png"
+    class="post-cover"
+    alt="Teacher_ability"
+    title="Cover Image" />
 
 
   
 
   <div class="post-content"><div>
-        <p><img src="/portfolio/img/kyoshoku.png" alt="教職"></p>
+        <p><img src="/portfolio/img/gakuryoku.png" alt="学力に関する証明書システム"></p>
 <h2 id="概要">概要<a href="#概要" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。</p>
-<p>制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。</p>
-<p>当該sharepointにアクセスできる職員しか管理情報にアクセスできない。</p>
+<p>大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。
+しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。</p>
+<p>この操作は大変複雑で、かつ、法改正が高頻度であるため、本証明書もそれに対応するため様式を変更する必要がる。とても流動的な証明書である。
+多くの大学では、この証明書の発行に多大な労力を払っている。</p>
+<p>この証明書を発行するために今までは以下の手順を踏んでいた。</p>
+<ol>
+<li>成績証明書を出力</li>
+<li>当時の講義要項を印刷</li>
+<li>読替表を印刷</li>
+<li>読替のチェック（蛍光ペンで紙にマーク）</li>
+<li>その結果を文部科学省の様式に転記</li>
+<li>備考欄に特記事項を記載</li>
+</ol>
+<p>以上5までのステップはロジカルなものであるため、機械化できると判断した。</p>
+<p>当初Excelで完結するつもりだったが、これまでの成績データが 110万件を超えたため断念。
+職場の制約を満たすため、成績データや個人情報などはDB化しNASに配置し、ローカルホストでサーバーを立ち上げウェブアプリからDBに接続する方法を採用した。</p>
+<p>機密情報があるためコードは公開できないが、上記の5までのステップは1分かからず実行可能。
+また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。
+ただし、成績情報が電子データとして保存されている場合に限定される。</p>
 <h2 id="効果">効果<a href="#効果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</p>
+<p>3時間　→　1分未満
+正確性の向上</p>
 
       </div></div>
 
@@ -179,17 +202,10 @@
     </div>
     <div class="pagination__buttons">
         
-        <span class="button previous">
-            <a href="https://amomoan.github.io/portfolio/posts/room_schedule/">
-                <span class="button__icon">←</span>
-                <span class="button__text">教室帳票変換ツール</span>
-            </a>
-        </span>
-        
         
         <span class="button next">
-            <a href="https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/">
-                <span class="button__text">卒業証明書発行ツール</span>
+            <a href="https://amomoan.github.io/portfolio/posts/teacher_course_manager/">
+                <span class="button__text">教職管理システム</span>
                 <span class="button__icon">→</span>
             </a>
         </span>

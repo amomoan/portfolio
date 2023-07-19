@@ -1,6 +1,6 @@
 +++
 title = "Excelマクロアドイン" 
-date = "2023-07-02T05:27:19+09:00"
+date = "2023-07-02"
 author = ""
 authorTwitter = "" #do not include @
 cover = "/portfolio/img/macrolist1.png"

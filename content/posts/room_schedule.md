@@ -1,6 +1,6 @@
 +++
 title = "教室帳票変換ツール"
-date = "2023-07-05T05:11:14+09:00"
+date = "2023-07-05"
 author = ""
 authorTwitter = "" #do not include @
 cover = ""

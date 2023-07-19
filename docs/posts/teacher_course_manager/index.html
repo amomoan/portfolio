@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   
-    <title>成績不振者抽出ツール :: YAMAMOTO MASAHIRO</title>
+    <title>教職管理システム :: YAMAMOTO MASAHIRO</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Excelの複雑なステップで判定されていたものが、クエリを作成することで誰でも簡単に判定できるようにした。" />
+<meta name="description" content="担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。" />
 <meta name="keywords" content=", " />
 
   <meta name="robots" content="noodp" />
 
-<link rel="canonical" href="https://amomoan.github.io/portfolio/posts/bad_score_checker/" />
+<link rel="canonical" href="https://amomoan.github.io/portfolio/posts/teacher_course_manager/" />
 
 
 
@@ -47,9 +47,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="成績不振者抽出ツール">
-<meta property="og:description" content="Excelの複雑なステップで判定されていたものが、クエリを作成することで誰でも簡単に判定できるようにした。" />
-<meta property="og:url" content="https://amomoan.github.io/portfolio/posts/bad_score_checker/" />
+<meta property="og:title" content="教職管理システム">
+<meta property="og:description" content="担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。" />
+<meta property="og:url" content="https://amomoan.github.io/portfolio/posts/teacher_course_manager/" />
 <meta property="og:site_name" content="YAMAMOTO MASAHIRO" />
 
   
@@ -60,7 +60,7 @@
 <meta property="og:image:height" content="627">
 
 
-  <meta property="article:published_time" content="2023-07-01 00:00:00 &#43;0000 UTC" />
+  <meta property="article:published_time" content="2023-07-16 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -137,18 +137,18 @@
     
 <article class="post">
   <h1 class="post-title">
-    <a href="https://amomoan.github.io/portfolio/posts/bad_score_checker/">成績不振者抽出ツール</a>
+    <a href="https://amomoan.github.io/portfolio/posts/teacher_course_manager/">教職管理システム</a>
   </h1>
-  <div class="post-meta"><time class="post-date">2023-07-01</time></div>
+  <div class="post-meta"><time class="post-date">2023-07-16</time></div>
 
   
     <span class="post-tags">
       
       #<a href="https://amomoan.github.io/portfolio/tags/%E6%A5%AD%E5%8B%99%E6%94%B9%E5%96%84/">業務改善</a>&nbsp;
       
-      #<a href="https://amomoan.github.io/portfolio/tags/excel/">Excel</a>&nbsp;
-      
       #<a href="https://amomoan.github.io/portfolio/tags/access/">Access</a>&nbsp;
+      
+      #<a href="https://amomoan.github.io/portfolio/tags/vba/">VBA</a>&nbsp;
       
       #<a href="https://amomoan.github.io/portfolio/tags/%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA/">ポートフォリオ</a>&nbsp;
       
@@ -160,19 +160,13 @@
   
 
   <div class="post-content"><div>
-        <h2 id="概要">概要<a href="#概要" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。</p>
-<p>それまでの担当者が「秘伝のたれ」のようにExcelを継ぎ足して対応していた。そのためExcelのガラパゴス化がひどく解読するのも一苦労だった。
-教務システムから成績を抽出し、そのExcelに取り込んで複雑なマニュアル操作によって何故か判定結果が出るのである。
-結局それが正しいか成績表を出力して確認するので作り変えることになった。</p>
-<p>判定条件は論理的に解釈できるものであったので、当時（2015年）勉強を始めたSQLで判定することとした。
-SQLはAccessで実行した。</p>
-<p>教務システムから出力したExcelファイルをAccessにインポートしてクエリを発行する流れである。
-当然判定は正確に行われた。</p>
-<p>その後別の部署に異動した。</p>
-<p>システム入れ替えに伴いベンダーと仕様調整を行っていた2022年に私の作った判定システムが今も現役で稼働していることを知ってうれしくなった。</p>
+        <p><img src="/portfolio/img/kyoshoku.png" alt="教職"></p>
+<h2 id="概要">概要<a href="#概要" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。</p>
+<p>制約としてDBサーバーを立てられないため、そして、保守面を考慮したため、データベースはクラウドのSharePointに配置し、アプリケーションファイルを配布する方法を取っている。</p>
+<p>当該sharepointにアクセスできる職員しか管理情報にアクセスできない。</p>
 <h2 id="効果">効果<a href="#効果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>1～2週間　→　3分 程度</p>
+<p>まだ管理情報を入力し終わった段階であるので効果は不明。ただ、正しい形でデータを保管しているので業務上必要な情報を迅速に抽出できる。またAccessのレポート機能で、例えば教育実習先に送る依頼状なども簡単に作成可能となった。</p>
 
       </div></div>
 
@@ -186,16 +180,16 @@ SQLはAccessで実行した。</p>
     <div class="pagination__buttons">
         
         <span class="button previous">
-            <a href="https://amomoan.github.io/portfolio/posts/macro_addin_list/">
+            <a href="https://amomoan.github.io/portfolio/posts/teacher_ability/">
                 <span class="button__icon">←</span>
-                <span class="button__text">Excelマクロアドイン</span>
+                <span class="button__text">Teacher_ability</span>
             </a>
         </span>
         
         
         <span class="button next">
-            <a href="https://amomoan.github.io/portfolio/posts/hugo/">
-                <span class="button__text">このサイト</span>
+            <a href="https://amomoan.github.io/portfolio/posts/room_schedule/">
+                <span class="button__text">教室帳票変換ツール</span>
                 <span class="button__icon">→</span>
             </a>
         </span>
