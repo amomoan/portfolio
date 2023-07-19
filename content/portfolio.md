@@ -1,8 +1,8 @@
----
-title: "Portfolio"
-date: "2023-07-20"
-author: "YAMAMOTO MASAHIRO"
----
++++
+title = "Portfolio"
+date = "2023-07-19"
+author = "YAMAMOTO MASAHIRO"
++++
 - 2014年10月 入社：Excelの学習開始
 - 2015年：ExcelVBAの学習開始
 - 2016年：Accessの学習開始

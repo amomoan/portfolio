@@ -126,6 +126,49 @@
     </item>
     
     <item>
+      <title>Portfolio</title>
+      <link>https://amomoan.github.io/portfolio/portfolio/</link>
+      <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://amomoan.github.io/portfolio/portfolio/</guid>
+      <description> 2014年10月 入社：Excelの学習開始 2015年：ExcelVBAの学習開始 2016年：Accessの学習開始 成績不振者抽出ツール Excelマクロアドイン 2017年 就職管理システム（失敗） 2019年 就職管理システム（成功） 2022年 卒業証明書発行ツール 2023年 教室帳票変換ツール 教職管理システム 学力に関する証明書作成アプリ ポートフォリオサイト </description>
+      <content>&lt;ul&gt;
+&lt;li&gt;2014年10月 入社：Excelの学習開始&lt;/li&gt;
+&lt;li&gt;2015年：ExcelVBAの学習開始&lt;/li&gt;
+&lt;li&gt;2016年：Accessの学習開始
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Cbad_score_checker&#34;&gt;成績不振者抽出ツール&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Cmacro_addin_list&#34;&gt;Excelマクロアドイン&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;2017年
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Crecruit_manager&#34;&gt;就職管理システム（失敗）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;2019年
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Crecruit_manager&#34;&gt;就職管理システム（成功）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;2022年
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Ccertificate_issuance_tool&#34;&gt;卒業証明書発行ツール&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;2023年
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Croom_schedule&#34;&gt;教室帳票変換ツール&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Cteacher_course_manager&#34;&gt;教職管理システム&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Cteacher_ability&#34;&gt;学力に関する証明書作成アプリ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;posts%5Chugo&#34;&gt;ポートフォリオサイト&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
       <title>学力に関する証明書作成アプリ</title>
       <link>https://amomoan.github.io/portfolio/posts/teacher_ability/</link>
       <pubDate>Wed, 19 Jul 2023 00:00:00 +0000</pubDate>
