@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://amomoan.github.io/portfolio/about/</loc>
+    <lastmod>2023-07-19T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://amomoan.github.io/portfolio/tags/access/</loc>
     <lastmod>2023-07-17T06:19:10+09:00</lastmod>
   </url><url>
@@ -50,10 +53,7 @@
     <loc>https://amomoan.github.io/portfolio/posts/certificate_issuance_tool/</loc>
     <lastmod>2023-07-15T19:30:48+09:00</lastmod>
   </url><url>
-    <loc>https://amomoan.github.io/portfolio/about/</loc>
-    <lastmod>2019-01-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://amomoan.github.io/portfolio/showcase/</loc>
+    <loc>https://amomoan.github.io/portfolio/portfolio/</loc>
     <lastmod>2018-07-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://amomoan.github.io/portfolio/categories/</loc>

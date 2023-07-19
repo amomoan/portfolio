@@ -13,59 +13,14 @@
       <pubDate>Mon, 17 Jul 2023 05:11:14 +0900</pubDate>
       
       <guid>https://amomoan.github.io/portfolio/posts/room_schedule/</guid>
-      <description>教室帳票変換ツール 概要 教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。
+      <description>概要 教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。
 githubでコードを公開しています。
 効果 空いている教室の利用状況を確認するのに要していた時間の短縮
 10　→　2分 /人・回
 スタッフ数30人
-詳細 使い方 dist/roomSchedule.exeを配布しています。 roomSchedule.exeを実行してください。
+詳細 dist/roomSchedule.exeを配布しています。
 コードの説明 このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。 施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。
 使い方 プログラムを起動します。 「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。 処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。 必要なライブラリ os sys pandas datetime time numpy tkinter tqdm styleframe 処理の流れ 施設予約ファイルを選択する 施設予約ファイルを読み込む 予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成 予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成 施設予約と講義のデータフレームを結合する。 時間割表のような枠だけのデータフレームを作成。 5のデータフレームのデータを6に転記する。 Excelファイルに書き込む。 </description>
-      <content>&lt;h1 id=&#34;教室帳票変換ツール&#34;&gt;教室帳票変換ツール&lt;/h1&gt;
-&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
-&lt;p&gt;教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/amomoan/roomSchedule&#34;&gt;github&lt;/a&gt;でコードを公開しています。&lt;/p&gt;
-&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
-&lt;p&gt;空いている教室の利用状況を確認するのに要していた時間の短縮&lt;/p&gt;
-&lt;p&gt;10　→　2分 /人・回&lt;/p&gt;
-&lt;p&gt;スタッフ数30人&lt;/p&gt;
-&lt;h2 id=&#34;詳細&#34;&gt;詳細&lt;/h2&gt;
-&lt;h3 id=&#34;使い方&#34;&gt;使い方&lt;/h3&gt;
-&lt;p&gt;dist/roomSchedule.exeを配布しています。
-roomSchedule.exeを実行してください。&lt;/p&gt;
-&lt;h3 id=&#34;コードの説明&#34;&gt;コードの説明&lt;/h3&gt;
-&lt;p&gt;このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。
-施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。&lt;/p&gt;
-&lt;h3 id=&#34;使い方-1&#34;&gt;使い方&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;プログラムを起動します。&lt;/li&gt;
-&lt;li&gt;「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。&lt;/li&gt;
-&lt;li&gt;処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;必要なライブラリ&#34;&gt;必要なライブラリ&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;os&lt;/li&gt;
-&lt;li&gt;sys&lt;/li&gt;
-&lt;li&gt;pandas&lt;/li&gt;
-&lt;li&gt;datetime&lt;/li&gt;
-&lt;li&gt;time&lt;/li&gt;
-&lt;li&gt;numpy&lt;/li&gt;
-&lt;li&gt;tkinter&lt;/li&gt;
-&lt;li&gt;tqdm&lt;/li&gt;
-&lt;li&gt;styleframe&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;処理の流れ&#34;&gt;処理の流れ&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;施設予約ファイルを選択する&lt;/li&gt;
-&lt;li&gt;施設予約ファイルを読み込む&lt;/li&gt;
-&lt;li&gt;予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成&lt;/li&gt;
-&lt;li&gt;予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成&lt;/li&gt;
-&lt;li&gt;施設予約と講義のデータフレームを結合する。&lt;/li&gt;
-&lt;li&gt;時間割表のような枠だけのデータフレームを作成。&lt;/li&gt;
-&lt;li&gt;5のデータフレームのデータを6に転記する。&lt;/li&gt;
-&lt;li&gt;Excelファイルに書き込む。&lt;/li&gt;
-&lt;/ol&gt;
-</content>
     </item>
     
   </channel>

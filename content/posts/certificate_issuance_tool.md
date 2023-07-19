@@ -3,7 +3,7 @@ title = "卒業証明書発行ツール"
 date = "2023-07-15T19:30:48+09:00"
 author = ""
 authorTwitter = "" #do not include @
-cover = ""
+cover = "../../static/img/certificateUI.png"
 tags = ["業務改善", "Excel","VBA","Word","ポートフォリオ"]
 keywords = ["", ""]
 description = "ExcelマクロでWordファイルを作成するようにした。"
@@ -13,6 +13,8 @@ hideComments = false
 color = "" #color from the theme settings
 +++
 
+![証明書発行PG](../../static/img/certificate.png)
+![証明書発行PGUI](../../static/img/certificateUI.png)
 ## 概要
 
 教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。
