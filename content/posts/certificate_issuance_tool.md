@@ -14,7 +14,6 @@ color = "" #color from the theme settings
 +++
 
 ![証明書発行PG](/portfolio/img/certificate.png)
-![証明書発行PGUI](/portfolio/img/certificateUI.png)
 
 ## 概要
 

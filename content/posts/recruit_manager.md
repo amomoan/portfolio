@@ -12,8 +12,6 @@ readingTime = false
 hideComments = false
 color = "" #color from the theme settings
 +++
-![リクルート](/portfolio/img/recruit.png)
-
 ## 概要
 
 担当課から相談を受け２つのキャンパスで２回制作。初回はAccessで開発したが担当課では保守ができず、あまり使ってもらえなかった。

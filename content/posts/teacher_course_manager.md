@@ -3,7 +3,7 @@ title = "教職管理システム"
 date = "2023-07-16"
 author = ""
 authorTwitter = "" #do not include @
-cover = ""
+cover = "/portfolio/img/kyoshoku.png"
 tags = ["業務改善", "Access","VBA","ポートフォリオ"]
 keywords = ["", ""]
 description = "担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。"
@@ -12,8 +12,6 @@ readingTime = false
 hideComments = false
 color = "" #color from the theme settings
 +++
-![教職](/portfolio/img/kyoshoku.png)
-
 ## 概要
 
 担当者が多くのExcelやWordファイルを管理しながら仕事をしているのを見て、一括で管理する方法を提案した。
