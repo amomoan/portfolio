@@ -1,22 +1,81 @@
 +++
 title = "About"
-date = "2019-01-25"
-author = "Radek"
+date = "2023-07-19"
+author = "masahiro Y"
 +++
 
-# Hi there
+## 自己紹介
 
-My name is Radek and I'm the author of this theme. I made it to help you present your ideas easier.
+2013年から主に大学事務のうち教務業務をメインに携わってきました。
 
-We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
 
-This theme is pretty basic and covers all of the essentials. All you have to do is start typing!
+教務とは授業運営が主な業務となりますが、実際に行う業務は多岐に亘ります。
 
-The theme includes:
 
-- **5 duotone themes**, depending on your preferences (orange, red, blue, green, pink)
-- [**Fira Code**](https://github.com/tonsky/FiraCode) as default monospaced font. It's gorgeous!
-- **really nice, custom duotone** syntax highlighting based on [**PrismJS**](https://prismjs.com)
-- mobile friendly layout
+ひとつのミスで卒業できないなどの大きなトラブルに発展することが多々ありますので、データを抽出・分析し可視化することで、効率的にミスの発生を防ぐことに重きを置き業務遂行しております。
 
-So, there you have it... enjoy!
+## 得意とする経験・分野
+
+教務事務では大量のデータ処理が求められます。また、一般的な事務業務も行います。
+
+そのため、ExcelやWordの使用には自信があります。特にExcelに関しては他の職員に教えることも多いため、事務職員の中では最も知識があると自負しております。
+
+また、Excelで処理しきれないデータについてはAccessやPythonを利用しています。
+
+## スキル
+
+- SQL（Access,SQLite）,Python
+- MicrosoftOffice（Word,Excel,PowerPoint,Access,Outlook）VBAまでできます。
+- 画像処理ソフト（Photoshop,Illustratorなど）
+
+## 職務経歴詳細
+
+期間業務内容
+2013年10月　～　現在【配属先】教務系　所属人数45人程度
+
+### 担当業務
+
+- 教務業務（現在は文学部担当、以前は工学部を4年間担当。）メイン業務
+  - 授業運営
+  - 教室変更、予約
+  - 時間割作成、登録→時間割表作成ツールを作成配布し効率化（Excel）
+    - 全教員から希望を聞いて調整
+  - 履修登録管理
+  - 学生対応
+    - 成績が良くない学生を分析してフォローアップする。
+  - 受験生、学生、保護者対応
+  - 授業に関する質問、クレーム対応
+  - 教員対応
+    - 教員からの依頼への対応（データ提供依頼など）
+  - 外部講師対応（謝金、旅費支出）
+  - 証明書作成、発行
+    - システムに登録されていない学生はExcelなどで手作りする。
+      - →ツールを作成して効率化（Excel,Word）
+  - その他
+    - 教授会運営、イベント運営、照会対応、資格業務（学芸員資格など）
+- 電算業務
+  - データ分析業務（成績や授業に関して）
+    - データの取り扱い件数は事務職員トップ（例えば成績は100万件を超える）
+  - 教務システムの変更に伴う業務
+    - 仕様調整、要件定義書の確認、移行データの作成、納品確認
+    - 運用しつつマニュアル作成（現在）
+  - 全学生に関する教務システムの設定
+  - 課職員のPC設定、保守、管理
+  - Accessシステムの保守、改善、アップデート対応（昨年度まで）
+  - 係員からの質問対応（情報システム担当者への窓口業務、一次窓口として）
+  - Excelで処理できないもの、定期業務のものはAccessやPythonを活用
+  - 課のNASの管理
+- 財務会計
+  - 経費執行（見積依頼、発注、財務会計システムへの入力）
+- その他
+  - 規程等の作成、変更
+  
+## 自己PR
+
+学習意欲・向上心
+
+休日も独学でプログラミングの学習を行っています。大学で数か月間休日に行われた社会人向けのPython講座にも参加して知見を深めました。
+
+好奇心が人一倍強く常に新しい知識を求めています。スキルアップのための学習は苦ではありません。そのおかげで現在は多くの部署からデータ管理や分析などのアドバイスを求められるようになりました。例えば、企画戦略（IR）部門からデータ分析方法を相談されたり、就職先の管理システムを作成したり、広報戦略のため出身高校別の成績などの分析をしたりしました。
+
+このように、他部署の業務改善にも大きく貢献できたと自負しております。

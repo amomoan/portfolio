@@ -89,9 +89,9 @@ publishDir = "docs"
         name = "About"
         url = "/about"
       [[languages.en.menu.main]]
-        identifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
+        identifier = "portfolio"
+        name = "Portfolio"
+        url = "/portfolio"
 
 [module]
   # In case you would like to make changes to the theme and keep it locally in you repository,
