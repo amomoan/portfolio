@@ -18,4 +18,4 @@ color = "" #color from the theme settings
 
 git pagesで公開しています。
 
-リポジトリは[こちら]です。(https://github.com/amomoan/portfolio)
+リポジトリは[こちら]です。(<https://github.com/amomoan/portfolio>)
