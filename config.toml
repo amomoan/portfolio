@@ -64,7 +64,7 @@ publishDir = "docs"
 [languages]
   [languages.en]
     languageName = "English"
-    title = "AM0:00"
+    title = "YAMAMOTO MASAHIRO"
     subtitle = ""
     owner = ""
     keywords = ""
