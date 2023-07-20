@@ -19,3 +19,5 @@ author = "YAMAMOTO MASAHIRO"
   - [教職管理システム](posts\teacher_course_manager)
   - [学力に関する証明書作成アプリ](posts\teacher_ability)
   - [ポートフォリオサイト](posts\hugo)
+
+その他、こまごまとツール開発しています。
