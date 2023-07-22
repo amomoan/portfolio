@@ -85,7 +85,6 @@ load_dotenv()
 
 app.secret_key = os.getenv('SECRET_KEY', 'for dev')
 
-# app.secret_key = "fdasf123124fasdf"
 # データベースファイルのパスを設定
 app.config["DATABASE"] = r"path/to/sqlite.db"
 
@@ -180,11 +179,6 @@ def close_db(exception):
 # ルートURLにアクセスしたときに呼び出される関数
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # print("start!")
-    # print(df_db.engine)
-    # for table in df_db.metadata.sorted_tables:
-    # print(table.name)
-
     try:
         with app.app_context():
             with df_db.engine.connect() as conn:
@@ -376,8 +370,6 @@ def download():
         )
     df_db = pd.DataFrame(data)
     ## セッションからデータフレームを取得
-    # print("download:")
-    # print(df_db.head())
     template_path = r"xltemplate\tmp.xlsx"
     output_sheet_name = "output"
     # ワークブックを読み込む
@@ -430,7 +422,6 @@ def yomikae():
 
 @app.route("/import_yomikae")
 def import_yomikae():
-    # print("インポート開始")
     db_path = current_app.config["DATABASE"]
     conn = sqlite3.connect(db_path)
     # Excelファイルからデータフレームを作成
@@ -441,7 +432,6 @@ def import_yomikae():
 
     # データベース接続を閉じる
     conn.close()
-    # print("インポート成功")
     flash("取込が完了しました。")
 
     return redirect("/")
@@ -449,7 +439,6 @@ def import_yomikae():
 
 @app.route("/export_yomikae")
 def export_yomikae():
-    # print("エクスポート")
     db_path = current_app.config["DATABASE"]
     conn = sqlite3.connect(db_path)
     # データベースからデータを取得してExcelファイルにエクスポートする処理

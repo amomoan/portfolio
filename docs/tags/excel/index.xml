@@ -22,6 +22,439 @@
 効果 現時点ではテンプレートや読替表を整備中のため稼働していないので予測値。
 3時間 → 3分程度
 ライブラリ openpyxl は、Excel 2010 xlsx/xlsm/xltx/xltmファイルを読み書きするためのPythonライブラリ。 pandas は、データ操作と分析のためのPythonライブラリで、データフレームというデータ構造を提供している。 flask は、軽量なWSGIウェブアプリケーションフレームワークで、簡単なアプリケーションから複雑なアプリケーションまでスケールアップすることができる。 flask_sqlalchemy は、FlaskアプリケーションにSQLAlchemyのサポートを追加する拡張機能。FlaskとSQLAlchemyを使用することを簡単にするために、便利なデフォルトと追加のヘルパーが提供されている。 sqlalchemy は、Python SQLツールキットおよびオブジェクト関係マッパーであり、データベースとの対話を容易にする。 dotenv は、.env ファイルから環境変数を読み込み、process.env にロードするためのゼロ依存モジュール。コードから環境設定を分離して保存することは、The Twelve-Factor App方法論に基づいている。 flask # app.py import io import os import re import sqlite3 from urllib.parse import quote import openpyxl import pandas as pd from flask import (Flask, Response, current_app, flash, g, redirect, render_template, request, session) from flask_sqlalchemy import SQLAlchemy from openpyxl.</description>
+      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。
+しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。&lt;/p&gt;
+&lt;p&gt;この操作は大変複雑で、かつ、法改正が高頻度であるため、本証明書もそれに対応するため様式を変更する必要がる。とても流動的な証明書である。
+多くの大学では、この証明書の発行に多大な労力を払っている。&lt;/p&gt;
+&lt;p&gt;この証明書を発行するために今までは以下の手順を踏んでいた。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;成績証明書を出力&lt;/li&gt;
+&lt;li&gt;当時の講義要項を印刷&lt;/li&gt;
+&lt;li&gt;読替表を印刷&lt;/li&gt;
+&lt;li&gt;読替のチェック（蛍光ペンで紙にマーク）&lt;/li&gt;
+&lt;li&gt;その結果を文部科学省の様式に転記&lt;/li&gt;
+&lt;li&gt;備考欄に特記事項を記載&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上5までのステップはロジカルなものであるため、機械化できると判断した。&lt;/p&gt;
+&lt;p&gt;当初Excelで完結するつもりだったが、これまでの成績データが 110万件を超えたため断念。
+職場の制約を満たすため、成績データや個人情報などはDB化しNASに配置し、ローカルホストでサーバーを立ち上げウェブアプリからDBに接続する方法を採用した。&lt;/p&gt;
+&lt;p&gt;機密情報があるためすべては公開できないが、上記の5までのステップは1分かからず実行可能。
+また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。
+ただし、成績情報が電子データとして保存されている場合に限定される。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;現時点ではテンプレートや読替表を整備中のため稼働していないので予測値。&lt;/p&gt;
+&lt;p&gt;3時間 → 3分程度&lt;/p&gt;
+&lt;h2 id=&#34;ライブラリ&#34;&gt;ライブラリ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;openpyxl&lt;/code&gt; は、Excel 2010 xlsx/xlsm/xltx/xltmファイルを読み書きするためのPythonライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pandas&lt;/code&gt; は、データ操作と分析のためのPythonライブラリで、データフレームというデータ構造を提供している。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flask&lt;/code&gt; は、軽量なWSGIウェブアプリケーションフレームワークで、簡単なアプリケーションから複雑なアプリケーションまでスケールアップすることができる。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flask_sqlalchemy&lt;/code&gt; は、FlaskアプリケーションにSQLAlchemyのサポートを追加する拡張機能。FlaskとSQLAlchemyを使用することを簡単にするために、便利なデフォルトと追加のヘルパーが提供されている。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sqlalchemy&lt;/code&gt; は、Python SQLツールキットおよびオブジェクト関係マッパーであり、データベースとの対話を容易にする。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dotenv&lt;/code&gt; は、&lt;code&gt;.env&lt;/code&gt; ファイルから環境変数を読み込み、&lt;code&gt;process.env&lt;/code&gt; にロードするためのゼロ依存モジュール。コードから環境設定を分離して保存することは、The Twelve-Factor App方法論に基づいている。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;flask&#34;&gt;flask&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# app.py&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; io
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; re
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sqlite3
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; urllib.parse &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; quote
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; openpyxl
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pandas &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; pd
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; flask &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (Flask, Response, current_app, flash, g, redirect,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                   render_template, request, session)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; flask_sqlalchemy &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; SQLAlchemy
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; openpyxl.utils.dataframe &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; dataframe_to_rows
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sqlalchemy &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; text
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; sqlalchemy.exc &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; SQLAlchemyError
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; dotenv &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; load_dotenv
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Flaskアプリケーションを作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;app &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Flask(__name__)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;load_dotenv()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;secret_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getenv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;SECRET_KEY&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;for dev&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; dotenv &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; load_dotenv
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;load_dotenv()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;secret_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getenv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;SECRET_KEY&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;for dev&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# データベースファイルのパスを設定&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;config[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DATABASE&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;path/to/sqlite.db&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;db_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;abspath(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;instance/df_db.sqlite&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# データベースURIを設定&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;config[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SQLALCHEMY_DATABASE_URI&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sqlite:///&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;db_path&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;df_db &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SQLAlchemy(app)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Score&lt;/span&gt;(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Model):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Integer, primary_key&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    student_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    student_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    birthdate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    student_affiliation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    subject_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    subject_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    evaluation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    certification_year &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    license_subject &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    faculty_department &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Column(df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;String(&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; __init__(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        student_id,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        student_name,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        birthdate,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        student_affiliation,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        subject_code,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        subject_name,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        evaluation,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        certification_year,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_to,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        license_subject,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        faculty_department,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;student_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; student_id
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;student_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; student_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;birthdate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; birthdate
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;student_affiliation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; student_affiliation
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subject_code &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; subject_code
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subject_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; subject_name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;evaluation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; evaluation
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;certification_year &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; certification_year
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;yomikae_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_to
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;license_subject &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; license_subject
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;faculty_department &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; faculty_department
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# データベース接続を取得する関数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_db&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# gオブジェクトにsqlite_db属性がない場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; hasattr(g, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sqlite_db&amp;#34;&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# データベース接続を作成してgオブジェクトに保存&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        g&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqlite_db &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sqlite3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect(current_app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;config[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DATABASE&amp;#34;&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データベース接続を返す&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; g&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqlite_db
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Flaskアプリケーションのコンテキスト内でデータベース操作を行う&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;app_context():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データベースが存在しない場合、データベースとテーブルを作成する&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exists(db_path):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;makedirs(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;instance&amp;#34;&lt;/span&gt;, exist_ok&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;app_context():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;engine&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; conn:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                trans &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;begin()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(text(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DROP TABLE score;&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    trans&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;commit()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    trans&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rollback()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;raise&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; SQLAlchemyError &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;An error occurred while executing the SQL statement: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;e&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データベースとテーブルを作成する。もしなくてもディレクトリごと作成される。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;create_all()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# アプリケーションコンテキストが終了するときに呼び出される関数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.teardown_appcontext&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;close_db&lt;/span&gt;(exception):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# gオブジェクトにsqlite_db属性がある場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; hasattr(g, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sqlite_db&amp;#34;&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# データベース接続を閉じる&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        g&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sqlite_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ルートURLにアクセスしたときに呼び出される関数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.route&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, methods&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;app_context():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;engine&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect() &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; conn:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                trans &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;begin()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(text(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DELETE FROM score;&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    trans&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;commit()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    trans&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rollback()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;raise&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; SQLAlchemyError &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;An error occurred while executing the SQL statement: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;e&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# 変数を初期化&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    student_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ability &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    belonging &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_belonging &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    scores &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    select_columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ability_columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_belonging_columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    error &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    db &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_db()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_sql_query(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT * FROM yomikae LIMIT 1&amp;#34;&lt;/span&gt;, db)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    select_columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [col &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; col &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;columns &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; re&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;match&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{4}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;科目名&amp;#34;&lt;/span&gt;, col)]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    select_columns&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sort(reverse&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_sql_query(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;SELECT &amp;#34;免許教科&amp;#34; FROM yomikae GROUP BY &amp;#34;免許教科&amp;#34; HAVING &amp;#34;免許教科&amp;#34;!=&amp;#34;教職&amp;#34;&amp;#39;&lt;/span&gt;, db
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ability_columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;免許教科&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_sql_query(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;SELECT &amp;#34;学部学科&amp;#34; FROM yomikae GROUP BY &amp;#34;学部学科&amp;#34; HAVING 学部学科 != &amp;#34;教職教職&amp;#34; ORDER BY &amp;#34;学部学科&amp;#34;&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        db,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_belonging_columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学部学科&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_to&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_to
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_from&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_from
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ability&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ability
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_belonging&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_belonging
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# POSTリクエストの場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;method &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# フォームデータを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        student_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;form&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;student_id&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;form&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_from&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;form&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_to&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ability &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;form&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ability&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_belonging &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;form&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_belonging&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_to&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_to
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_from&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_from
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ability&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ability
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        session[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_belonging&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; yomikae_belonging
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        sSQL &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            SELECT
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;学籍番号&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;学生氏名&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;生年月日&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;学生所属&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;科目コード&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;科目名&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;評価&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;認定年度&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                Y.&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_to&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                Y.&amp;#34;免許教科&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                Y.&amp;#34;学部学科&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            FROM
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                (
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    all_score
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    LEFT JOIN student ON all_score.&amp;#34;学籍番号&amp;#34; = student.&amp;#34;学籍番号&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                ) AS A
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                LEFT JOIN (
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    SELECT
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_from&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_to&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;免許教科&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;学部学科&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    FROM
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        yomikae
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    WHERE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        (
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                            &amp;#34;学部学科&amp;#34; = &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_belonging&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                            OR &amp;#34;学部学科&amp;#34; = &amp;#34;教職教職&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        )
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        AND
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        (
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                            &amp;#34;免許教科&amp;#34; = &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;ability&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                            OR &amp;#34;免許教科&amp;#34; = &amp;#34;教職&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                            )
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        AND &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_from&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; IS NOT NULL
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                ) AS Y ON A.&amp;#34;科目名&amp;#34; = REPLACE (Y.&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_from&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#39;●&amp;#39;, &amp;#39;&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            WHERE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                A.&amp;#34;学籍番号&amp;#34; = ?
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# student_idが入力されていない場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; student_id:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            error &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学籍番号を入力してください。&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;# データベース接続を取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            db &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_db()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;# SQLクエリを実行してデータフレームを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_sql_query(sSQL, db, params&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(student_id,))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;errors&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DatabaseError &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            error &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;データベースエラー: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;e&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sort_values([yomikae_to, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目コード&amp;#34;&lt;/span&gt;])&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;# データフレームが空でない場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;empty:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#75715e&#34;&gt;# 氏名と成績データを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;iloc[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生氏名&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                belonging &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;iloc[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;][&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生所属&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                columns &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学籍番号&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生氏名&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;生年月日&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生所属&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目コード&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目名&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;評価&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;認定年度&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    yomikae_to,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;免許教科&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学部学科&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                scores &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; df[columns]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_dict(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;records&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; score &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; scores:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Score(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        student_id&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学籍番号&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        student_name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生氏名&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        birthdate&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;生年月日&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        student_affiliation&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生所属&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        subject_code&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目コード&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        subject_name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目名&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        evaluation&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;評価&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        certification_year&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;認定年度&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        yomikae_to&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[yomikae_to],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        license_subject&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;免許教科&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        faculty_department&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;score[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学部学科&amp;#34;&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add(s)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                df_db&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;commit()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# テンプレートをレンダリングしてレスポンスを返す&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; render_template(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;index.html&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;name,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        student_id&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;student_id,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        belonging&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;belonging,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_from&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yomikae_from,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_to&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yomikae_to,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ability&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ability,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_belonging&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yomikae_belonging,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        scores&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;scores,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        select_columns&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;select_columns,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ability_columns&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ability_columns,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_belonging_columns&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yomikae_belonging_columns,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        error&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.route&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/download&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;download&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    scores &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;query&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;all()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; score &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; scores:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        data&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学籍番号&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;student_id,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生氏名&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;student_name,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;生年月日&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;birthdate,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生所属&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;student_affiliation,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目コード&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subject_code,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;科目名&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subject_name,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;評価&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;evaluation,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;認定年度&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;certification_year,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_to&amp;#34;&lt;/span&gt;): score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;yomikae_to,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;免許教科&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;license_subject,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学部学科&amp;#34;&lt;/span&gt;: score&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;faculty_department,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df_db &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataFrame(data)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;## セッションからデータフレームを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    template_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xltemplate\tmp.xlsx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    output_sheet_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# ワークブックを読み込む&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    wb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; openpyxl&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;load_workbook(template_path)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# 出力シートを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ws &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; wb[output_sheet_name]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データフレームを行に変換&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    rows &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dataframe_to_rows(df_db, index&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;, header&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# 行をシートに書き込む&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; row_index, row &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; enumerate(rows, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; column_index, value &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; enumerate(row, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ws&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cell(row&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;row_index, column&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;column_index, value&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;value)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# メモリ上に一時的なバッファを作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;BytesIO()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# ワークブックをバッファに保存&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;save(output)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# バッファのデータを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; output&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getvalue()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# レスポンスを作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    studentID &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(df_db[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学籍番号&amp;#34;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;iloc[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    student_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(df_db[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;学生氏名&amp;#34;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;iloc[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    filename &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output_&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;studentID&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;student_name&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.xlsx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Response(data, content_type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;application/vnd.ms-excel&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;headers&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;set(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Content-Disposition&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;attachment&amp;#34;&lt;/span&gt;, filename&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;quote(filename))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; response
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.route&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/yomikae&amp;#34;&lt;/span&gt;, methods&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET&amp;#34;&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;yomikae&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    db &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_db()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_to&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_from&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ability &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ability&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    yomikae_belonging &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; session&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae_belonging&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# SQLクエリを定義&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sSQL &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;SELECT &amp;#34;学部学科&amp;#34;,&amp;#34;免許教科&amp;#34;,&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_from&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_to&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; FROM yomikae WHERE &amp;#34;免許教科&amp;#34;=&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;ability&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; AND &amp;#34;学部学科&amp;#34;=&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;yomikae_belonging&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;  &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# SQLクエリを実行してデータフレームを取得&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_sql_query(sSQL, db)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;errors&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DatabaseError &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;# エラー処理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        error &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;データベースエラー: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;e&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        yomikae_df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;DataFrame()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    error &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# テンプレートをレンダリングしてレスポンスを返す&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; render_template(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae.html&amp;#34;&lt;/span&gt;, data&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yomikae_df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_html(), error&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;error)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.route&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/import_yomikae&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;import_yomikae&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    db_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current_app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;config[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DATABASE&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sqlite3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect(db_path)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# Excelファイルからデータフレームを作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_excel(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xltemplate\yomikae.xlsx&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データフレームをデータベースにインポート&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_sql(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yomikae&amp;#34;&lt;/span&gt;, conn, if_exists&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;replace&amp;#34;&lt;/span&gt;, index&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データベース接続を閉じる&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    flash(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;取込が完了しました。&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; redirect(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@app.route&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/export_yomikae&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;export_yomikae&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    db_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; current_app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;config[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DATABASE&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sqlite3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect(db_path)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# データベースからデータを取得してExcelファイルにエクスポートする処理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_sql_query(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT * FROM yomikae&amp;#34;&lt;/span&gt;, conn)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_excel(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xltemplate\yomikae.xlsx&amp;#34;&lt;/span&gt;, index&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    flash(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;出力が完了しました。&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    flash(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;出力したファイルは \xltemplate\yomikae.xlsx です。&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    flash(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;取り込む際は元の読替表が削除され全件分取り込まれます。&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; index()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# スクリプトとして実行された場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# Flaskアプリケーションを起動（デバッグモード）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;run(debug&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
@@ -38,6 +471,48 @@ githubでコードを公開しています。
 詳細 dist/roomSchedule.exeを配布しています。
 コードの説明 このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。 施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。
 使い方 プログラムを起動します。 「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。 処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。 必要なライブラリ os sys pandas datetime time numpy tkinter tqdm styleframe 処理の流れ 施設予約ファイルを選択する 施設予約ファイルを読み込む 予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成 予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成 施設予約と講義のデータフレームを結合する。 時間割表のような枠だけのデータフレームを作成。 5のデータフレームのデータを6に転記する。 Excelファイルに書き込む。 </description>
+      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;教務システムから出力されたExcelファイル（単票形式）からマトリクス表形式のExcelファイルに変換する。教室の利用状況を総覧する帳票がなく緊急で教室変更などを行う必要が出たときに確認に時間がかかっていた。マトリクス形式に変換することですぐ状況を確認できるようになり、業務が改善した。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/amomoan/roomSchedule&#34;&gt;github&lt;/a&gt;でコードを公開しています。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;空いている教室の利用状況を確認するのに要していた時間の短縮&lt;/p&gt;
+&lt;p&gt;10　→　2分 /人・回&lt;/p&gt;
+&lt;p&gt;スタッフ数30人&lt;/p&gt;
+&lt;h2 id=&#34;詳細&#34;&gt;詳細&lt;/h2&gt;
+&lt;p&gt;dist/roomSchedule.exeを配布しています。&lt;/p&gt;
+&lt;h3 id=&#34;コードの説明&#34;&gt;コードの説明&lt;/h3&gt;
+&lt;p&gt;このPythonコードは、学務システムから出力される施設予約と講義のスケジュールが記載されたファイル&amp;quot;施設予約.xlsx&amp;quot;を、時間割表のような形でExcelに書き出すためのものです。
+施設予約.xlsxは非常に見づらく日々発生する教室確認作業が滞るため作成しました。&lt;/p&gt;
+&lt;h3 id=&#34;使い方&#34;&gt;使い方&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;プログラムを起動します。&lt;/li&gt;
+&lt;li&gt;「施設予約ファイルを選択」ウィンドウが表示されますので、対象のExcelファイル&amp;quot;施設予約.xlsx&amp;quot;を選択します。&lt;/li&gt;
+&lt;li&gt;処理が完了すると、指定したExcelファイルと同じディレクトリに結果が出力されます。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;必要なライブラリ&#34;&gt;必要なライブラリ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;os&lt;/li&gt;
+&lt;li&gt;sys&lt;/li&gt;
+&lt;li&gt;pandas&lt;/li&gt;
+&lt;li&gt;datetime&lt;/li&gt;
+&lt;li&gt;time&lt;/li&gt;
+&lt;li&gt;numpy&lt;/li&gt;
+&lt;li&gt;tkinter&lt;/li&gt;
+&lt;li&gt;tqdm&lt;/li&gt;
+&lt;li&gt;styleframe&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;処理の流れ&#34;&gt;処理の流れ&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;施設予約ファイルを選択する&lt;/li&gt;
+&lt;li&gt;施設予約ファイルを読み込む&lt;/li&gt;
+&lt;li&gt;予約区分=&amp;ldquo;施設予約&amp;quot;の各予約に対して時限を割り当てたデータフレームを作成&lt;/li&gt;
+&lt;li&gt;予約区分=&amp;ldquo;講義&amp;quot;のデータフレームを作成&lt;/li&gt;
+&lt;li&gt;施設予約と講義のデータフレームを結合する。&lt;/li&gt;
+&lt;li&gt;時間割表のような枠だけのデータフレームを作成。&lt;/li&gt;
+&lt;li&gt;5のデータフレームのデータを6に転記する。&lt;/li&gt;
+&lt;li&gt;Excelファイルに書き込む。&lt;/li&gt;
+&lt;/ol&gt;
+</content>
     </item>
     
     <item>
@@ -50,6 +525,15 @@ githubでコードを公開しています。
 また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。
 効果 担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。 また、作成の正確性が向上した。（英単語入力のスペルミスなど）
 1件あたり 20分→2分程度に短縮された。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/certificate.png&#34; alt=&#34;証明書発行PG&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;教務システムで管理していない昔の卒業生から卒業証明書の発行依頼があった場合、毎回Wordのテンプレートを打ち換えて証明書を作成していたが、操作が煩雑で記載内容にミスが多く手間がかかっていた。学籍情報で機械的に判定できるため、ExcelマクロでWordファイルを作成するようにした。&lt;/p&gt;
+&lt;p&gt;また卒業証明書の発行依頼件数は特に多いため業務改善に有効だった。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;担当職員が10人程度いるが、毎週数件の依頼があるため、その都度作業時間が短縮されている。
+また、作成の正確性が向上した。（英単語入力のスペルミスなど）&lt;/p&gt;
+&lt;p&gt;1件あたり 20分→2分程度に短縮された。&lt;/p&gt;
+</content>
     </item>
     
     <item>
@@ -68,6 +552,37 @@ githubでコードを公開しています。
 Excelで完結する 担当者がメンテナンスできるようにする（持続可能性） マクロは使わない なるべく簡単なシート関数で実装する 作成 要件定義：作りこむ前に簡単に作成してみて担当者にヒアリングした。機能の過不足について調査。 作成：データベース部分のシートと個別帳票シートに分けて、Lookup関数で参照するように作成。メンテナンスしやすいように正規化は最小限に留めた。印刷する必要もあるとのことだった。 納品：担当者とその上司に実際にサンプルデータで説明を行う。 データ移行：今までの各担当者が蓄積していた微妙に違う帳票内容をクレンジングしてデータ移行した。 効果 入力する項目数は同じため入力に要する時間はあまり変わらない。ただし、誰が入力しても同じようなデータになる。
 効果を発揮するのは後でそのデータを抽出するとき。データベースシートから容易に抽出できる。
 検索時間：30分 → 10秒</description>
+      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;担当課から相談を受け２つのキャンパスで２回制作。初回はAccessで開発したが担当課では保守ができず、あまり使ってもらえなかった。&lt;/p&gt;
+&lt;p&gt;反省を生かし２回目はExcelで作成。マクロは使用せずテーブル設計を工夫し、関数を用い担当者でメンテナンスできるように工夫した。その結果現在でも使用されている。&lt;/p&gt;
+&lt;h3 id=&#34;相談内容-2度目の成功事例&#34;&gt;相談内容 (2度目の成功事例)&lt;/h3&gt;
+&lt;p&gt;企業訪問を受けた際、従来Excelフォーマット（単票形式）に担当者がその内容を記録していた。それを印刷してファイリングしていて、後からその情報を閲覧するときにはファイルの内容を探す手段がとられていた。&lt;/p&gt;
+&lt;p&gt;また、学生の就職先は別のシステムで管理されており、担当者によって企業名の入力が異なるため、データを結合しづらい状況があった。&lt;/p&gt;
+&lt;p&gt;私が業務改善を行っていることを知っていたキャリアセンター職員から相談を受け改善することになった。&lt;/p&gt;
+&lt;h2 id=&#34;検討&#34;&gt;検討&lt;/h2&gt;
+&lt;p&gt;1度目は就職先管理をAccessで行うことが目的だったが、Accessの運用は担当職員にはハードルが高く、また、自分が所属している部署ではなかったため、サポートがしづらい状況だった。そのため、管理システムは完成したが運用してもらえなかった苦い経験があった。&lt;/p&gt;
+&lt;p&gt;反省点と改善点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Excelで完結する&lt;/li&gt;
+&lt;li&gt;担当者がメンテナンスできるようにする（持続可能性）
+&lt;ul&gt;
+&lt;li&gt;マクロは使わない&lt;/li&gt;
+&lt;li&gt;なるべく簡単なシート関数で実装する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;作成&#34;&gt;作成&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;要件定義：作りこむ前に簡単に作成してみて担当者にヒアリングした。機能の過不足について調査。&lt;/li&gt;
+&lt;li&gt;作成：データベース部分のシートと個別帳票シートに分けて、Lookup関数で参照するように作成。メンテナンスしやすいように正規化は最小限に留めた。印刷する必要もあるとのことだった。&lt;/li&gt;
+&lt;li&gt;納品：担当者とその上司に実際にサンプルデータで説明を行う。&lt;/li&gt;
+&lt;li&gt;データ移行：今までの各担当者が蓄積していた微妙に違う帳票内容をクレンジングしてデータ移行した。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;入力する項目数は同じため入力に要する時間はあまり変わらない。ただし、誰が入力しても同じようなデータになる。&lt;/p&gt;
+&lt;p&gt;効果を発揮するのは後でそのデータを抽出するとき。データベースシートから容易に抽出できる。&lt;/p&gt;
+&lt;p&gt;検索時間：30分 → 10秒&lt;/p&gt;
+</content>
     </item>
     
     <item>
@@ -78,6 +593,14 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
       <guid>https://amomoan.github.io/portfolio/posts/macro_addin_list/</guid>
       <description>概要 よく使う集計作業などをワンクリックでできるようにしたもの。例えば複数のシート内容を結合する機能など。希望者には配布している。
 効果 ブックやシートの結合はよく行うが、手作業で行うと時間がかかるので、特に効果的だった。 自分の業務上100ブック、数百シート程度のExcelファイルを結合することもある。このように数が多くなればなるほど効果的。</description>
+      <content>&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/macrolist1.png&#34; alt=&#34;マクロリスト&#34;&gt;
+&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/img/macrolist2.png&#34; alt=&#34;マクロリスト&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;よく使う集計作業などをワンクリックでできるようにしたもの。例えば複数のシート内容を結合する機能など。希望者には配布している。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;ブックやシートの結合はよく行うが、手作業で行うと時間がかかるので、特に効果的だった。
+自分の業務上100ブック、数百シート程度のExcelファイルを結合することもある。このように数が多くなればなるほど効果的。&lt;/p&gt;
+</content>
     </item>
     
     <item>
@@ -93,6 +616,20 @@ Excelで完結する 担当者がメンテナンスできるようにする（�
 その後別の部署に異動した。
 システム入れ替えに伴いベンダーと仕様調整を行っていた2022年に私の作った判定システムが今も現役で稼働していることを知ってうれしくなった。
 効果 1～2週間　→　3分 程度</description>
+      <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
+&lt;p&gt;成績不振者には退学を勧告する制度がある。誤った勧告は許されないため、慎重な判定が必要だった。&lt;/p&gt;
+&lt;p&gt;それまでの担当者が「秘伝のたれ」のようにExcelを継ぎ足して対応していた。そのためExcelのガラパゴス化がひどく解読するのも一苦労だった。
+教務システムから成績を抽出し、そのExcelに取り込んで複雑なマニュアル操作によって何故か判定結果が出るのである。
+結局それが正しいか成績表を出力して確認するので作り変えることになった。&lt;/p&gt;
+&lt;p&gt;判定条件は論理的に解釈できるものであったので、当時（2016年）勉強を始めたSQLで判定することとした。
+SQLはAccessで実行した。&lt;/p&gt;
+&lt;p&gt;教務システムから出力したExcelファイルをAccessにインポートしてクエリを発行する流れである。
+当然判定は正確に行われた。&lt;/p&gt;
+&lt;p&gt;その後別の部署に異動した。&lt;/p&gt;
+&lt;p&gt;システム入れ替えに伴いベンダーと仕様調整を行っていた2022年に私の作った判定システムが今も現役で稼働していることを知ってうれしくなった。&lt;/p&gt;
+&lt;h2 id=&#34;効果&#34;&gt;効果&lt;/h2&gt;
+&lt;p&gt;1～2週間　→　3分 程度&lt;/p&gt;
+</content>
     </item>
     
   </channel>
