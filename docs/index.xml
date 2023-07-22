@@ -45,7 +45,7 @@
 この証明書を発行するために今までは以下の手順を踏んでいた。
 成績証明書を出力 当時の講義要項を印刷 読替表を印刷 読替のチェック（蛍光ペンで紙にマーク） その結果を文部科学省の様式に転記 備考欄に特記事項を記載 以上5までのステップはロジカルなものであるため、機械化できると判断した。
 当初Excelで完結するつもりだったが、これまでの成績データが 110万件を超えたため断念。 職場の制約を満たすため、成績データや個人情報などはDB化しNASに配置し、ローカルホストでサーバーを立ち上げウェブアプリからDBに接続する方法を採用した。
-機密情報があるためコードは公開できないが、上記の5までのステップは1分かからず実行可能。 また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。 ただし、成績情報が電子データとして保存されている場合に限定される。
+機密情報があるためすべては公開できないが、上記の5までのステップは1分かからず実行可能。 また、確認資料とできるように生データに近い形をExcelのシートに書き出すように工夫した。 ただし、成績情報が電子データとして保存されている場合に限定される。
 ライブラリ openpyxl は、Excel 2010 xlsx/xlsm/xltx/xltmファイルを読み書きするためのPythonライブラリ。 pandas は、データ操作と分析のためのPythonライブラリで、データフレームというデータ構造を提供している。 flask は、軽量なWSGIウェブアプリケーションフレームワークで、簡単なアプリケーションから複雑なアプリケーションまでスケールアップすることができる。 flask_sqlalchemy は、FlaskアプリケーションにSQLAlchemyのサポートを追加する拡張機能。FlaskとSQLAlchemyを使用することを簡単にするために、便利なデフォルトと追加のヘルパーが提供されている。 sqlalchemy は、Python SQLツールキットおよびオブジェクト関係マッパーであり、データベースとの対話を容易にする。 dotenv は、.env ファイルから環境変数を読み込み、process.env にロードするためのゼロ依存モジュール。コードから環境設定を分離して保存することは、The Twelve-Factor App方法論に基づいている。 flask # app.py import io import os import re import sqlite3 from urllib.parse import quote import openpyxl import pandas as pd from flask import (Flask, Response, current_app, flash, g, redirect, render_template, request, session) from flask_sqlalchemy import SQLAlchemy from openpyxl.</description>
     </item>
     
