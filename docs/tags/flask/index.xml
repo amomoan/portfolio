@@ -23,7 +23,7 @@
 3時間 → 3分程度
 ライブラリ openpyxl は、Excel 2010 xlsx/xlsm/xltx/xltmファイルを読み書きするためのPythonライブラリ。 pandas は、データ操作と分析のためのPythonライブラリで、データフレームというデータ構造を提供している。 flask は、軽量なWSGIウェブアプリケーションフレームワークで、簡単なアプリケーションから複雑なアプリケーションまでスケールアップすることができる。 flask_sqlalchemy は、FlaskアプリケーションにSQLAlchemyのサポートを追加する拡張機能。FlaskとSQLAlchemyを使用することを簡単にするために、便利なデフォルトと追加のヘルパーが提供されている。 sqlalchemy は、Python SQLツールキットおよびオブジェクト関係マッパーであり、データベースとの対話を容易にする。 dotenv は、.env ファイルから環境変数を読み込み、process.env にロードするためのゼロ依存モジュール。コードから環境設定を分離して保存することは、The Twelve-Factor App方法論に基づいている。 flask # app.py import io import os import re import sqlite3 from urllib.parse import quote import openpyxl import pandas as pd from flask import (Flask, Response, current_app, flash, g, redirect, render_template, request, session) from flask_sqlalchemy import SQLAlchemy from openpyxl.</description>
       <content>&lt;h2 id=&#34;概要&#34;&gt;概要&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://amomoan.github.io/portfolio/portfolio/video/gakuryoku_demo.mp4&#34; alt=&#34;デモンストレーション&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;p&gt;大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。
 しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。&lt;/p&gt;
 &lt;p&gt;この操作は大変複雑で、かつ、法改正が高頻度であるため、本証明書もそれに対応するため様式を変更する必要がる。とても流動的な証明書である。

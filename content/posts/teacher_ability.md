@@ -14,7 +14,7 @@ color = "" #color from the theme settings
 +++
 ## 概要
 
-![デモンストレーション](/portfolio/video/gakuryoku_demo.mp4)
+<video controls src="/portfolio/video/gakuryoku_demo.mp4"></video>
 
 大学には教職課程に関して「学力に関する証明書」という証明書がある。これは文部科学省が様式を公開しており、決まったルールどおりに入力する必要がある。
 しかし、入学した年度や各種条件により現行法の科目に読み替える必要がある。
